@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
-let database: any
+let db: any
 
 /**
  * Connects to the Mongo DataBase and adds listeners for success connection and errors
  * @returns connection instance**/
 export const connectToMongo = () => {
-    //If the database variable already set, then it will not produce any new connections
-    if (database) {
+    //If the db variable already set, then it will not produce any new connections
+    if (db) {
         return
     }
 
@@ -21,16 +21,16 @@ export const connectToMongo = () => {
         })
         .catch((error) => console.log(error))
 
-    //Setting connection instance to the database variable
-    database = mongoose.connection
+    //Setting connection instance to the db variable
+    db = mongoose.connection
 
     //Success listener
-    database.once('open', async () => console.log('Connected'))
+    db.once('open', async () => console.log('Connected'))
 
     //Failure listener
-    database.on('error', (err: Error) => {
+    db.on('error', (err: Error) => {
         console.log(err)
     })
 
-    return database
+    return db
 }
