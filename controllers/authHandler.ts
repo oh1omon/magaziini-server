@@ -4,35 +4,35 @@ const passport = require('passport')
 
 initializePassport(passport, getUserByEmail, getUserById)
 
-// /**
-//  *
-//  * @param {Request} req
-//  * @param {Response} res
-//  * @returns Response with JSON object containing user object <- if everything went successfull
-//  * @returns Response with JSON object containing message <- if wrong data submitted
-//  * @returns Response with JSON object containing error <- if internal error has occured
-//  */
-// export const register = (req: any, res: any) => {
-//     if (!req.body) {
-//         res.json({ err: 'No data provided' })
-//     }
-//     if (!Validator.singUp(req.body)) {
-//         return res.json({ message: 'Wrong data submitted' })
-//     }
-//     signUpUser(req.body)
-//         .then((r: any) => {
-//             if (typeof r !== 'string') {
-//                 delete r.password
-//                 return res.json({
-//                     message: 'Employee created!',
-//                     user: r,
-//                 })
-//             } else {
-//                 res.json({ err: r })
-//             }
-//         })
-//         .catch((e: Error) => console.log(e))
-// }
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @returns Response with JSON object containing user object <- if everything went successfull
+ * @returns Response with JSON object containing message <- if wrong data submitted
+ * @returns Response with JSON object containing error <- if internal error has occured
+ */
+export const register = (req: any, res: any) => {
+    if (!req.body) {
+        res.json({ err: 'No data provided' })
+    }
+    if (!Validator.singUp(req.body)) {
+        return res.json({ message: 'Wrong data submitted' })
+    }
+    // signUpUser(req.body)
+    //     .then((r: any) => {
+    //         if (typeof r !== 'string') {
+    //             delete r.password
+    //             return res.json({
+    //                 message: 'Employee created!',
+    //                 user: r,
+    //             })
+    //         } else {
+    //             res.json({ err: r })
+    //         }
+    //     })
+    //     .catch((e: Error) => console.log(e))
+}
 
 /**
  * @param {Request} req
