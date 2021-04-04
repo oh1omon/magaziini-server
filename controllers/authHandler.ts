@@ -73,7 +73,6 @@ export const login = (req: any, res: any) => {
  * @returns Response with JSON object containing user object
  */
 export const retrieve = (req: any, res: any) => {
-    console.log(req.user)
     return res.json({ user: req.user })
 }
 

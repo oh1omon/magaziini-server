@@ -52,7 +52,6 @@ export const findOneUser = async (filter: string, value: any) => {
         return
     }
     let filterObj: IFilterObj = {}
-    filterObj[filter] = value
     return User.findOne(filterObj, (err: Error, data: UserDocument) => {
         if (err) {
             return err.message
