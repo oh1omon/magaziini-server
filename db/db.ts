@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import { User } from './User/UserModel'
+import Validator from '../controllers/validator'
+import { IFilterObj, UserDocument } from '../types'
 
 let db: any
 
@@ -33,4 +36,26 @@ export const connectToMongo = () => {
     })
 
     return db
+}
+
+/**
+ * @param filter intakes the string by which field of document to do searches
+ * @param value intakes the string of value to compare with the documents
+ * Searching only through the Users collection
+ * @returns either found document, or null*/
+export const findOneUser = async (filter: string, value: any) => {
+    if (
+        !Validator.checkEmptyString(filter) ||
+        !Validator.checkEmptyString(value)
+    ) {
+        return
+    }
+    let filterObj: IFilterObj = {}
+    filterObj[filter] = value
+    return User.findOne(filterObj, (err: Error, data: UserDocument) => {
+        if (err) {
+            return err.message
+        }
+        return data
+    })
 }

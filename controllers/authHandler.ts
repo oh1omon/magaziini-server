@@ -1,13 +1,14 @@
 import Validator from './validator'
 import { initializePassport } from './passportInitialize'
-const passport = require('passport')
+import passport from 'passport'
+import { findOneUser } from '../db/db'
 
-initializePassport(passport, getUserByEmail, getUserById)
+initializePassport(passport, findOneUser)
 
 /**
  *
- * @param {Request} req
- * @param {Response} res
+ * @param { Request } req
+ * @param { Response } res
  * @returns Response with JSON object containing user object <- if everything went successfull
  * @returns Response with JSON object containing message <- if wrong data submitted
  * @returns Response with JSON object containing error <- if internal error has occured
@@ -35,8 +36,8 @@ export const register = (req: any, res: any) => {
 }
 
 /**
- * @param {Request} req
- * @param {Response} res
+ * @param { Request } req
+ * @param { Response } res
  * @returns Response with JSON object containing user object
  */
 export const login = (req: any, res: any) => {
@@ -66,8 +67,8 @@ export const login = (req: any, res: any) => {
 }
 
 /**
- * @param {Request} req
- * @param {Response} res
+ * @param { Request } req
+ * @param { Response } res
  * @returns Response with JSON object containing user object
  */
 export const retrieve = (req: any, res: any) => {
@@ -75,8 +76,8 @@ export const retrieve = (req: any, res: any) => {
 }
 
 /**
- * @param {Request} req
- * @param {Response} res
+ * @param { Request } req
+ * @param { Response } res
  * @returns Perfoms log out process and then deletes client side session cookie
  */
 export const signout = (req: any, res: any) => {

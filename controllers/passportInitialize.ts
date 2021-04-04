@@ -9,17 +9,13 @@ import LocalStrategy from 'passport-local'
  * Intakes passport instance,
  * function to find user by email to let authenticating able,
  * function to find user by id to deserialize the user*/
-export const initializePassport = (
-    passport: any,
-    getUserByEmail: any,
-    getUserById: any
-) => {
+export const initializePassport = (passport: any, findOneUser: any) => {
     const authenticateUser = async (
         email: string,
         password: string,
         done: any
     ) => {
-        const user = await getUserByEmail(email)
+        const user = await findOneUser('email', email)
         if (!user) {
             return done(null, false, {
                 message: `No user found with ${email} email!`,
@@ -42,6 +38,6 @@ export const initializePassport = (
         done(null, user.id)
     })
     passport.deserializeUser(async (id: any, done: any) => {
-        return done(null, await getUserById(id))
+        return done(null, await findOneUser('_id', id))
     })
 }
