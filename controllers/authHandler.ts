@@ -1,7 +1,7 @@
 import Validator from './validator'
 import { initializePassport } from './passportInitialize'
 import passport from 'passport'
-import { findOneUser } from '../db/db'
+import { findOneUser, signUpUser } from '../db/db'
 
 initializePassport(passport, findOneUser)
 
@@ -20,19 +20,18 @@ export const register = (req: any, res: any) => {
     if (!Validator.singUp(req.body)) {
         return res.json({ message: 'Wrong data submitted' })
     }
-    // signUpUser(req.body)
-    //     .then((r: any) => {
-    //         if (typeof r !== 'string') {
-    //             delete r.password
-    //             return res.json({
-    //                 message: 'Employee created!',
-    //                 user: r,
-    //             })
-    //         } else {
-    //             res.json({ err: r })
-    //         }
-    //     })
-    //     .catch((e: Error) => console.log(e))
+    signUpUser(req.body)
+        .then((r: any) => {
+            if (typeof r !== 'string') {
+                return res.json({
+                    message: 'User created!',
+                    user: r,
+                })
+            } else {
+                res.json({ err: r })
+            }
+        })
+        .catch((e: Error) => console.log(e))
 }
 
 /**
@@ -60,6 +59,8 @@ export const login = (req: any, res: any) => {
                 user: {
                     _id: user._id,
                     email: user.email,
+                    orders: user.orders,
+                    favorites: user.favorites,
                 },
             })
         })
@@ -72,6 +73,7 @@ export const login = (req: any, res: any) => {
  * @returns Response with JSON object containing user object
  */
 export const retrieve = (req: any, res: any) => {
+    console.log(req.user)
     return res.json({ user: req.user })
 }
 

@@ -14,7 +14,14 @@ interface IUser {
 
 type UserDocument = IUser & Document
 
-//
+//Interface for finOneUser function
 interface IFilterObj {
     [filter: string]: any
+}
+
+//
+interface ISignUpUser {
+    email: string
+    password: string
+    username: string
 }

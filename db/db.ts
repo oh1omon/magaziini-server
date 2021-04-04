@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 import { User } from './User/UserModel'
 import Validator from '../controllers/validator'
-import { IFilterObj, UserDocument } from '../types'
+import { IFilterObj, ISignUpUser, UserDocument } from '../types'
 
 let db: any
 
@@ -57,5 +58,41 @@ export const findOneUser = async (filter: string, value: any) => {
             return err.message
         }
         return data
+    })
+}
+
+/**
+ * @param {object} userObj
+ * @returns user created -> returns user document with deleted password
+ * @returns already user with this email -> returns string with message
+ */
+export const signUpUser = async (userObj: ISignUpUser) => {
+    return new Promise(async (resolve, reject) => {
+        if (await findOneUser('email', userObj.email)) {
+            return resolve(
+                `There are already an account assigned to ${userObj.email}`
+            )
+        }
+        User.create(
+            {
+                _id: new mongoose.Types.ObjectId(),
+                email: userObj.email,
+                password: await bcrypt.hash(userObj.password, 10),
+                username: userObj.username,
+                favorites: [],
+                orders: [],
+            },
+            (err, doc) => {
+                if (err) {
+                    return reject(err.message)
+                }
+                return resolve({
+                    _id: doc._id,
+                    email: doc.email,
+                    orders: doc.orders,
+                    favorites: doc.favorites,
+                })
+            }
+        )
     })
 }
