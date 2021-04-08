@@ -2,7 +2,7 @@
 
 import mongoose, { Document } from 'mongoose'
 
-//For User Schema and Model
+//Interfaces for User Schema and Model
 interface IUser {
     _id: mongoose.Types.ObjectId
     email: string
@@ -19,13 +19,14 @@ interface IFilterObj {
     [filter: string]: any
 }
 
-//
+//Interface for createNewUSer function
 interface ISignUpUser {
     email: string
     password: string
     username: string
 }
 
+//Interfaces for Item Schema and Model
 interface IItem {
     _id: mongoose.Schema.Types.ObjectId
     name: string
@@ -41,3 +42,16 @@ interface IItem {
 }
 
 type ItemDocument = IItem & Document
+
+interface ICreateItem {
+    name: string
+    description: string
+    image: string
+    sizes: string[]
+    inStock: number
+    price: number
+    color: string
+    availiableColors?: string[]
+    season: string
+    structure: object
+}

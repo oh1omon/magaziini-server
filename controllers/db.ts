@@ -1,8 +1,15 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import { User } from './user/user-model'
-import Validator from '../controllers/validator'
-import { IFilterObj, ISignUpUser, UserDocument } from '../types'
+import { User } from '../db/user/user-model'
+import Validator from './validator'
+import {
+    ICreateItem,
+    IFilterObj,
+    ISignUpUser,
+    ItemDocument,
+    UserDocument,
+} from '../types'
+import { Item } from '../db/item/item-model'
 
 let db: any
 
@@ -45,16 +52,15 @@ export const connectToMongo = () => {
  * Searching only through the Users collection
  * @returns either found document, or null*/
 export const findOneUser = async (filter: string, value: any) => {
-    if (
-        !Validator.checkEmptyString(filter) ||
-        !Validator.checkEmptyString(value)
-    ) {
+    if (!Validator.checkString(filter) || !Validator.checkString(value)) {
         return
     }
     let filterObj: IFilterObj = {}
     filterObj[filter] = value
     return User.findOne(filterObj, (err: Error, data: UserDocument) => {
         if (err) {
+            //TOD
+            console.log(err)
             return err.message
         }
 
@@ -92,6 +98,48 @@ export const signUpUser = async (userObj: ISignUpUser) => {
                     email: doc.email,
                     orders: doc.orders,
                     favorites: doc.favorites,
+                })
+            }
+        )
+    })
+}
+
+/**
+ * @param {ICreateItem} itemObj
+ * @returns {} Item document – if document has been added
+ */
+export const createItem = async (itemObj: ICreateItem) => {
+    return new Promise(async (resolve, reject) => {
+        Item.create(
+            {
+                _id: new mongoose.Types.ObjectId(),
+                name: itemObj.name,
+                description: itemObj.description,
+                image: itemObj.image,
+                sizes: itemObj.sizes,
+                inStock: itemObj.inStock,
+                price: itemObj.price,
+                color: itemObj.color,
+                availiableColors: itemObj.availiableColors,
+                season: itemObj.season,
+                structure: itemObj.structure,
+            },
+            (err: Error, doc: ItemDocument) => {
+                if (err) {
+                    return reject(err)
+                }
+                return resolve({
+                    _id: doc._id,
+                    name: doc.name,
+                    description: doc.description,
+                    image: doc.image,
+                    sizes: doc.sizes,
+                    inStock: doc.inStock,
+                    price: doc.price,
+                    color: doc.color,
+                    availiableColors: doc.availiableColors,
+                    season: doc.season,
+                    structure: doc.structure,
                 })
             }
         )

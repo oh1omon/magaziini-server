@@ -24,12 +24,21 @@ class Validator {
     password(password: string) {
         return password.length >= 8
     }
+
     /**
      * @param string
      * @returns True if string is not falsy and
      * False if string is actually falsy*/
-    checkEmptyString(string: string) {
+    checkString(string: string) {
         return !!string
+    }
+
+    /**
+     * @param number
+     * @returns True if number is actually number and
+     * False if number is not number(NaN is number anyway :(*/
+    checkNumber(number: number) {
+        return !!(typeof number === 'number')
     }
 
     /**
@@ -49,6 +58,18 @@ class Validator {
     signIn(signInObj: any) {
         return !!(
             this.email(signInObj.email) && this.password(signInObj.password)
+        )
+    }
+
+    createItem(item: any) {
+        return (
+            !!this.checkString(item.name) &&
+            !!this.checkString(item.description) &&
+            !!this.checkString(item.image) &&
+            !!this.checkString(item.color) &&
+            !!this.checkString(item.season) &&
+            !!this.checkNumber(item.inStock) &&
+            !!this.checkNumber(item.price)
         )
     }
 }

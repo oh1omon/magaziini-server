@@ -1,4 +1,4 @@
-POST http://127.0.0.1:8080/login
+POST http://127.0.0.1:8080/api/login
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###`
 
-POST http://127.0.0.1:8080/user
+POST http://127.0.0.1:8080/api/user
 Content-Type: application/json
 
 # {
@@ -18,13 +18,31 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8080/register
+POST http://127.0.0.1:8080/api/register
 Content-Type: application/json
 
 {
 	"email":"artem.szagarov@test.com", 
 	"password": "12345678",
 	"username": "osuzhdayu"
+}
+
+###
+
+POST http://127.0.0.1:8080/api/additem
+Content-Type: application/json
+
+{
+    "name": "string",
+    "description": "string",
+    "image": "string",
+    "sizes": ["string[]"],
+    "inStock": 3.5,
+    "price": 0,
+    "color": "string",
+    "availiableColors": ["string[]"],
+    "season": "string",
+    "structure": {"check":"1"}
 }
 
 ###`

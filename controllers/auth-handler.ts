@@ -1,7 +1,7 @@
 import Validator from './validator'
 import { initializePassport } from './passport-initialize'
 import passport from 'passport'
-import { findOneUser, signUpUser } from '../db/db'
+import { findOneUser, signUpUser } from './db'
 
 initializePassport(passport, findOneUser)
 

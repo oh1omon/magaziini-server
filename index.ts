@@ -5,8 +5,9 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
-import { connectToMongo } from './db/db'
+import { connectToMongo } from './controllers/db'
 import authRoutes from './routes/auth-routes'
+import itemRoutes from './routes/item-routes'
 import path from 'path'
 
 //Extracting PORT & HOST variables from .env file
@@ -42,7 +43,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Adding information about authentication routes to express
-app.use(authRoutes)
+app.use('/api', authRoutes)
+
+//Adding information about authentication routes to express
+app.use('/api', itemRoutes)
 
 app.get('/', (req, res) => {
     res.json({ hello: 'hello' })

@@ -8,4 +8,5 @@ export const UserSchema: Schema = new Schema({
     name: { type: String, required: false },
     favorites: { type: [mongoose.Schema.Types.ObjectId], required: false },
     orders: { type: [mongoose.Schema.Types.ObjectId], required: false },
+    type: { type: String, required: false },
 })
