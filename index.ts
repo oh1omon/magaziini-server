@@ -6,7 +6,7 @@ dotenv.config()
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import { connectToMongo } from './db/db'
-import authRoutes from './routes/authRoutes'
+import authRoutes from './routes/auth-routes'
 import path from 'path'
 
 //Extracting PORT & HOST variables from .env file

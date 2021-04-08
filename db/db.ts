@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import { User } from './User/UserModel'
+import { User } from './user/user-model'
 import Validator from '../controllers/validator'
 import { IFilterObj, ISignUpUser, UserDocument } from '../types'
 

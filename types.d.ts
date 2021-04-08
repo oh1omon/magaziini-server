@@ -25,3 +25,19 @@ interface ISignUpUser {
     password: string
     username: string
 }
+
+interface IItem {
+    _id: mongoose.Schema.Types.ObjectId
+    name: string
+    description: string
+    image: string
+    sizes: string[]
+    inStock: number
+    price: number
+    color: string
+    availiableColors: string[]
+    season: string
+    structure: object
+}
+
+type ItemDocument = IItem & Document

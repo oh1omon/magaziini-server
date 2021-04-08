@@ -1,6 +1,6 @@
 import { Router } from 'express'
 const router = Router()
-import { register, login, retrieve, signout } from '../controllers/authHandler'
+import { register, login, retrieve, signout } from '../controllers/auth-handler'
 
 router.post('/register', register)
 router.post('/login', login)
