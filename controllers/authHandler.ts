@@ -25,7 +25,12 @@ export const register = (req: any, res: any) => {
             if (typeof r !== 'string') {
                 return res.json({
                     message: 'User created!',
-                    user: r,
+                    user: {
+                        _id: r._id,
+                        email: r.email,
+                        orders: r.orders,
+                        favorites: r.favorites,
+                    },
                 })
             } else {
                 res.json({ err: r })
@@ -73,7 +78,14 @@ export const login = (req: any, res: any) => {
  * @returns Response with JSON object containing user object
  */
 export const retrieve = (req: any, res: any) => {
-    return res.json({ user: req.user })
+    return res.json({
+        user: {
+            _id: req.user._id,
+            email: req.user.email,
+            orders: req.user.orders,
+            favorites: req.user.favorites,
+        },
+    })
 }
 
 /**
