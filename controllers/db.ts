@@ -88,8 +88,9 @@ export const signUpUser = async (userObj: ISignUpUser) => {
                 username: userObj.username,
                 favorites: [],
                 orders: [],
+                type: 'default',
             },
-            (err, doc) => {
+            (err: Error, doc: UserDocument) => {
                 if (err) {
                     return reject(err.message)
                 }
@@ -103,6 +104,8 @@ export const signUpUser = async (userObj: ISignUpUser) => {
         )
     })
 }
+
+//TODO update user(mostly for adress)
 
 /**
  * @param {ICreateItem} itemObj
@@ -145,3 +148,8 @@ export const createItem = async (itemObj: ICreateItem) => {
         )
     })
 }
+
+//TODO delete item
+//TODO update item
+
+//TODO create order

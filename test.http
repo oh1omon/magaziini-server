@@ -22,7 +22,7 @@ POST http://127.0.0.1:8080/api/register
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test.com", 
+	"email":"artem.szagarov@test1.com", 
 	"password": "12345678",
 	"username": "osuzhdayu"
 }

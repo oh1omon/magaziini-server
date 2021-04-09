@@ -6,5 +6,6 @@ router.post('/register', register)
 router.post('/login', login)
 router.post('/user', retrieve)
 router.post('/signout', signout)
+//TODO
 
 export default router
