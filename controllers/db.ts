@@ -116,6 +116,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
  * @param updatesObj
  * @returns updated version of user
  */
+//FIXME NEED TO TEST
 export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
@@ -180,12 +181,26 @@ export const createItem = async (itemObj: ICreateItem) => {
 	})
 }
 
-//TODO delete item
+/**
+ * @param itemId
+ */
+//FIXME NEED TO TEST
+export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
+	return new Promise(async (resolve, reject) => {
+		const filterObj = createFilterObj('_id', itemId)
+		await Item.findOneAndDelete(filterObj, {}, (err, res) => {
+			if (err) return reject(err.message)
+			return resolve(res)
+		})
+	})
+}
+
 /**
  * @param itemId
  * @param updatesObj
  * @returns updated version of item
  */
+//FIXME NEED TO TEST
 export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
@@ -210,3 +225,4 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 }
 
 //TODO create order
+//FIXME NEED TO TEST
