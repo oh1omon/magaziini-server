@@ -2,11 +2,11 @@ POST http://127.0.0.1:8080/api/login
 Content-Type: application/json
 
 {
-	"email":"artem.zagarov@gmailw.com", 
+	"email":"artem.szagarov@test2.com", 
 	"password": "12345678"
 }
 
-###`
+###
 
 POST http://127.0.0.1:8080/api/user
 Content-Type: application/json
@@ -22,10 +22,14 @@ POST http://127.0.0.1:8080/api/register
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test1.com", 
+	"email":"artem.szagarov@test2.com", 
 	"password": "12345678",
 	"username": "osuzhdayu"
 }
+
+###
+POST http://127.0.0.1:8080/api/signout
+Content-Type: application/json
 
 ###
 
