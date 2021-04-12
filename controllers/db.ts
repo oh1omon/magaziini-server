@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { Item } from '../db/item/item-model'
+import { Order } from '../db/order/order-model'
 import { User } from '../db/user/user-model'
-import { ICreateItem, IFilterObj, ISignUpUser, ItemDocument, UserDocument } from '../types'
+import { ICreateItem, IFilterObj, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
 import Validator from './validator'
 
 let db: any
@@ -150,6 +151,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 				_id: new mongoose.Types.ObjectId(),
 				name: itemObj.name,
 				description: itemObj.description,
+				sex: itemObj.sex,
 				image: itemObj.image,
 				sizes: itemObj.sizes,
 				inStock: itemObj.inStock,
@@ -167,6 +169,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 					_id: doc._id,
 					name: doc.name,
 					description: doc.description,
+					sex: doc.sex,
 					image: doc.image,
 					sizes: doc.sizes,
 					inStock: doc.inStock,
@@ -211,6 +214,7 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 				_id: doc._id,
 				name: doc.name,
 				description: doc.description,
+				sex: doc.sex,
 				image: doc.image,
 				sizes: doc.sizes,
 				inStock: doc.inStock,
@@ -226,3 +230,25 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 
 //TODO create order
 //FIXME NEED TO TEST
+/**
+ *
+ * @param orderObj
+ * @returns {IOrderDocument} created document
+ */
+export const createOrder = async (orderObj: any) => {
+	return new Promise(async (resolve, reject) => {
+		await Order.create(
+			{
+				_id: new mongoose.Types.ObjectId(),
+				itemId: orderObj.itemId,
+				size: orderObj.size,
+				color: orderObj.color,
+				status: 'submitted'
+			},
+			(e: Error, r: IOrderDocument) => {
+				if (e) return reject(e)
+				return resolve(r)
+			}
+		)
+	})
+}

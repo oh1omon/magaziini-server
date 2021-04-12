@@ -1,14 +1,14 @@
-import express from 'express'
-import session from 'express-session'
+import MongoStore from 'connect-mongo'
 import cors from 'cors'
 import * as dotenv from 'dotenv'
-dotenv.config()
-import MongoStore from 'connect-mongo'
+import express from 'express'
+import session from 'express-session'
 import passport from 'passport'
 import { connectToMongo } from './controllers/db'
-import authRoutes from './routes/auth-routes'
 import itemRoutes from './routes/item-routes'
-import path from 'path'
+import orderRoutes from './routes/order-routes'
+import authRoutes from './routes/user-routes'
+dotenv.config()
 
 //Extracting PORT & HOST variables from .env file
 const PORT: number = parseInt(process.env.PORT as string, 10)
@@ -26,16 +26,16 @@ let db = connectToMongo()
 
 //Initializing Express session
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({
-            mongoUrl: process.env.DB_CONNECTION_LINK,
-            stringify: false,
-        }),
-        cookie: { maxAge: 60 * 60 * 1000 * 24 * 30 },
-    })
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: false,
+		store: MongoStore.create({
+			mongoUrl: process.env.DB_CONNECTION_LINK,
+			stringify: false
+		}),
+		cookie: { maxAge: 60 * 60 * 1000 * 24 * 30 }
+	})
 )
 
 //Applying Passport middleware
@@ -43,13 +43,16 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Adding information about authentication routes to express
-app.use('/api', authRoutes)
+app.use('/api/user', authRoutes)
 
-//Adding information about authentication routes to express
-app.use('/api', itemRoutes)
+//Adding information about item routes to express
+app.use('/api/item', itemRoutes)
+
+//Adding information about order routes to express
+app.use('/api/order', orderRoutes)
 
 app.get('/', (req, res) => {
-    res.json({ hello: 'hello' })
+	res.json({ hello: 'hello' })
 })
 
 // // Only for testing
@@ -60,5 +63,5 @@ app.get('/', (req, res) => {
 
 //Starting server
 app.listen(PORT, HOST, () => {
-    console.log(`server is listening on ${HOST}:${PORT}`)
+	console.log(`server is listening on ${HOST}:${PORT}`)
 })

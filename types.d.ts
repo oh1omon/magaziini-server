@@ -35,6 +35,7 @@ interface IItem {
 	_id: mongoose.Schema.Types.ObjectId
 	name: string
 	description: string
+	sex: string
 	image: string
 	sizes: string[]
 	inStock: number
@@ -50,6 +51,7 @@ type ItemDocument = IItem & Document
 interface ICreateItem {
 	name: string
 	description: string
+	sex: string
 	image: string
 	sizes: string[]
 	inStock: number
@@ -59,3 +61,15 @@ interface ICreateItem {
 	season: string
 	structure: object
 }
+
+//Interfaces for Order Schema and Model
+
+interface IOrder {
+	_id: mongoose.Schema.Types.ObjectId
+	itemId: mongoose.Schema.Types.ObjectId
+	size: string
+	color: string
+	status: string
+}
+
+type IOrderDocument = IOrder & Document

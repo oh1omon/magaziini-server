@@ -71,7 +71,11 @@ class Validator {
 		)
 	}
 
-	//TODO create validation for updates...
+	/**
+	 *
+	 * @param updateObj
+	 * @returns checked object ready for next work
+	 */
 	updateUser(updateObj: any) {
 		let resObj: any = {}
 		if (typeof updateObj.email === 'string') resObj.email = updateObj.email
@@ -83,6 +87,8 @@ class Validator {
 		if (resObj.favorites) resObj.favorites = updateObj.favorites
 		if (resObj.orders) resObj.orders = updateObj.orders
 	}
+
+	//TODO create validation for updates...
 }
 
 //Exporting instance of class, though nobody makes lots of them
