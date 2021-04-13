@@ -14,7 +14,7 @@ class Validator {
 	/**
 	 * @param username string
 	 * @returns True if username is not falsy*/
-	username(username: string) {
+	name(username: string) {
 		return !!username
 	}
 
@@ -46,7 +46,7 @@ class Validator {
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: any) {
 		return !!(
-			this.username(signUpObj.username) &&
+			this.name(signUpObj.name) &&
 			this.email(signUpObj.email) &&
 			this.password(signUpObj.password)
 		)
@@ -78,7 +78,6 @@ class Validator {
 	 */
 	updateUser(updateObj: any) {
 		let resObj: any = {}
-		if (typeof updateObj.email === 'string') resObj.email = updateObj.email
 		if (typeof updateObj.password === 'string') resObj.password = updateObj.password
 		if (typeof updateObj.name === 'string') resObj.name = updateObj.name
 		if (typeof updateObj.street === 'string') resObj.street = updateObj.street

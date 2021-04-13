@@ -29,6 +29,7 @@ export const register = (req: any, res: any) => {
 					user: {
 						_id: r._id,
 						email: r.email,
+						name: r.name,
 						orders: r.orders,
 						favorites: r.favorites,
 						type: r.type,
@@ -69,6 +70,7 @@ export const login = (req: any, res: any) => {
 				user: {
 					_id: user._id,
 					email: user.email,
+					name: user.name,
 					orders: user.orders,
 					favorites: user.favorites,
 					type: user.type,
@@ -92,6 +94,7 @@ export const retrieve = (req: any, res: any) => {
 			user: {
 				_id: req.user._id,
 				email: req.user.email,
+				name: req.user.name,
 				orders: req.user.orders,
 				favorites: req.user.favorites,
 				type: req.user.type,
@@ -128,11 +131,13 @@ export const update = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'no data submitted' })
 	if (!req.user)
 		return res.json({ err: 'you have to be logged in to change your profile, isnt that to easy????' })
-	updateUser(req.user._id, Validator.updateUser(req.body))
+	let updateObj = Validator.updateUser(req.body)
+	updateUser(req.user._id, updateObj)
 		.then((r: any) => {
 			return res.json({
 				id: r._id,
 				email: r.email,
+				name: r.name,
 				orders: r.orders,
 				favorites: r.favorites,
 				type: r.type,

@@ -2,8 +2,8 @@ POST http://127.0.0.1:8080/api/user/login
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test2.com", 
-	"password": "12345678"
+	"email":"artem.szagarov@test3.com", 
+	"password": "1234567890"
 }
 
 ###
@@ -22,9 +22,19 @@ POST http://127.0.0.1:8080/api/user/register
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test2.com", 
+	"email":"artem.szagarov@test3.com", 
 	"password": "12345678",
-	"username": "osuzhdayu"
+	"name": "osuzhdayu"
+}
+
+###
+POST http://127.0.0.1:8080/api/user/update
+Content-Type: application/json
+
+{
+	"password": "1234567890",
+    "city":"normal1",
+	"name": "osuzhdayu2"
 }
 
 ###

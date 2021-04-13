@@ -85,7 +85,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				_id: new mongoose.Types.ObjectId(),
 				email: userObj.email,
 				password: await bcrypt.hash(userObj.password, 10),
-				username: userObj.username,
+				name: userObj.name,
 				favorites: [],
 				orders: [],
 				type: 'default',
@@ -100,6 +100,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				return resolve({
 					_id: doc._id,
 					email: doc.email,
+					name: doc.name,
 					orders: doc.orders,
 					favorites: doc.favorites,
 					type: doc.type,
@@ -123,12 +124,16 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.orders) updatesObj.orders = { $push: updatesObj.orders }
 		if (updatesObj.favorites) updatesObj.favorites = { $push: updatesObj.favorites }
+		if (updatesObj.password) {
+			updatesObj.password = await bcrypt.hash(updatesObj.password, 10)
+		}
 		await User.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc) => {
 			if (err) return reject(err.message)
 
 			return resolve({
 				_id: doc._id,
 				email: doc.email,
+				name: doc.name,
 				orders: doc.orders,
 				favorites: doc.favorites,
 				type: doc.type,

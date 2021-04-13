@@ -7,7 +7,7 @@ interface IUser {
 	_id: mongoose.Types.ObjectId
 	email: string
 	password?: string
-	username: string
+	name: string
 	favorites: mongoose.Types.ObjectId[]
 	orders: mongoose.Types.ObjectId[]
 	type: string
@@ -27,7 +27,7 @@ interface IFilterObj {
 interface ISignUpUser {
 	email: string
 	password: string
-	username: string
+	name: string
 }
 
 //Interfaces for Item Schema and Model
