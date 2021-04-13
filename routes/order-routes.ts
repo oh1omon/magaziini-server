@@ -1,7 +1,7 @@
 import { Router } from 'express'
+import { create } from '../controllers/order-handler'
 const router = Router()
 
-//TODO
-router.post('/create')
+router.post('/create', create)
 
 export default router

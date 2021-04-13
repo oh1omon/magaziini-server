@@ -86,9 +86,46 @@ class Validator {
 		if (typeof updateObj.country === 'string') resObj.country = updateObj.country
 		if (resObj.favorites) resObj.favorites = updateObj.favorites
 		if (resObj.orders) resObj.orders = updateObj.orders
+		return resObj
 	}
 
-	//TODO create validation for updates...
+	/**
+	 *
+	 * @param orderObj
+	 * @returns True if object has passed the validation and False if have not passed
+	 */
+	createOrder(orderObj: any) {
+		return (
+			!!this.checkString(orderObj.itemId) &&
+			!!this.checkString(orderObj.size) &&
+			!!this.checkString(orderObj.color)
+		)
+	}
+
+	/**
+	 *
+	 * @param itemObj
+	 * @returns True if object has passed the validation and False if have not passed
+	 */
+	updateItem(itemObj: any) {
+		let resObj: any = {}
+		if (typeof itemObj.name === 'string') resObj.name = itemObj.name
+		if (typeof itemObj.description === 'string') resObj.description = itemObj.description
+		if (typeof itemObj.sex === 'string') resObj.sex = itemObj.sex
+		if (typeof itemObj.image === 'string') resObj.image = itemObj.image
+		if (typeof itemObj.color === 'string') resObj.color = itemObj.color
+		if (typeof itemObj.season === 'string') resObj.season = itemObj.season
+		if (typeof itemObj.inStock === 'number') resObj.inStock = itemObj.inStock
+		if (typeof itemObj.price === 'number') resObj.price = itemObj.price
+		return resObj
+	}
+	objectId(id: string) {
+		if (typeof id === 'string') {
+			return !!id.match(/^[0-9a-fA-F]{24}$/)
+		} else {
+			return false
+		}
+	}
 }
 
 //Exporting instance of class, though nobody makes lots of them

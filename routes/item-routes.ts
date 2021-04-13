@@ -1,10 +1,9 @@
 import { Router } from 'express'
-import { addItem } from '../controllers/item-handler'
+import { add, remove, update } from '../controllers/item-handler'
 const router = Router()
 
-router.post('/create', addItem)
-//TODO
-router.post('/update')
-router.post('/delete')
+router.post('/create', add)
+router.post('/update', update)
+router.post('/remove', remove)
 
 export default router

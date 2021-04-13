@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
-import { Item } from '../db/item/item-model'
-import { Order } from '../db/order/order-model'
-import { User } from '../db/user/user-model'
+import { Item } from '../db-models/item/item-model'
+import { Order } from '../db-models/order/order-model'
+import { User } from '../db-models/user/user-model'
 import { ICreateItem, IFilterObj, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
 import Validator from './validator'
 
@@ -187,7 +187,6 @@ export const createItem = async (itemObj: ICreateItem) => {
 /**
  * @param itemId
  */
-//FIXME NEED TO TEST
 export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
@@ -203,11 +202,10 @@ export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
  * @param updatesObj
  * @returns updated version of item
  */
-//FIXME NEED TO TEST
 export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
-		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc) => {
+		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc: any) => {
 			if (err) return reject(err.message)
 
 			return resolve({
@@ -228,7 +226,6 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 	})
 }
 
-//TODO create order
 //FIXME NEED TO TEST
 /**
  *

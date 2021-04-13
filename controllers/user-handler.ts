@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { IUser } from '../types'
-import { findOneUser, signUpUser } from './db'
+import { findOneUser, signUpUser, updateUser } from './db'
 import { initializePassport } from './passport-initialize'
 import Validator from './validator'
 
@@ -124,4 +124,22 @@ export const signout = (req: any, res: any) => {
 	})
 }
 
-//TODO update
+export const update = (req: any, res: any) => {
+	if (!req.body) return res.json({ err: 'no data submitted' })
+	if (!req.user)
+		return res.json({ err: 'you have to be logged in to change your profile, isnt that to easy????' })
+	updateUser(req.user._id, Validator.updateUser(req.body))
+		.then((r: any) => {
+			return res.json({
+				id: r._id,
+				email: r.email,
+				orders: r.orders,
+				favorites: r.favorites,
+				type: r.type,
+				street: r.street,
+				city: r.city,
+				country: r.country
+			})
+		})
+		.catch(e => console.log(e))
+}

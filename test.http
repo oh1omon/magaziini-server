@@ -1,4 +1,4 @@
-POST http://127.0.0.1:8080/api/login
+POST http://127.0.0.1:8080/api/user/login
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8080/api/user
+POST http://127.0.0.1:8080/api/user/user
 Content-Type: application/json
 
 # {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8080/api/register
+POST http://127.0.0.1:8080/api/user/register
 Content-Type: application/json
 
 {
@@ -28,20 +28,20 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8080/api/signout
+POST http://127.0.0.1:8080/api/user/signout
 Content-Type: application/json
 
 ###
-
-POST http://127.0.0.1:8080/api/additem
+POST http://127.0.0.1:8080/api/item/create
 Content-Type: application/json
 
 {
+    "_id": "606f53ded540f3156a84c616",
     "name": "string",
     "description": "string",
     "image": "string",
-    "sizes": ["string[]"],
-    "inStock": 3.5,
+    "sizes": ["35-3u"],
+    "inStock": 4.0,
     "price": 0,
     "color": "string",
     "availiableColors": ["string[]"],
@@ -49,4 +49,31 @@ Content-Type: application/json
     "structure": {"check":"1"}
 }
 
-###`
+###
+
+POST http://127.0.0.1:8080/api/item/update
+Content-Type: application/json
+
+{
+    "_id": "606f53ded540f3156a84c616",
+    "name": "string",
+    "description": "string",
+    "image": "string",
+    "sizes": ["35-3u"],
+    "inStock": 4.2,
+    "price": 0,
+    "color": "string",
+    "availiableColors": ["string[]"],
+    "season": "string",
+    "structure": {"check":"1"}
+}
+
+###
+
+POST http://127.0.0.1:8080/api/item/remove
+Content-Type: application/json
+
+{
+    "_id": "60758944ccf22a3322b0b2bc"
+}
+###
