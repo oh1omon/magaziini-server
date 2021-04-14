@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
 	"email":"artem.szagarov@test3.com", 
-	"password": "1234567890"
+	"password": "12345678"
 }
 
 ###
@@ -32,7 +32,7 @@ POST http://127.0.0.1:8080/api/user/update
 Content-Type: application/json
 
 {
-	"password": "1234567890",
+	"password": "12345678",
     "city":"normal1",
 	"name": "osuzhdayu2"
 }
@@ -87,3 +87,12 @@ Content-Type: application/json
     "_id": "60758944ccf22a3322b0b2bc"
 }
 ###
+
+POST http://127.0.0.1:8080/api/order/create
+Content-Type: application/json
+
+{
+    "itemId":"6076b65cba0fd23b60dfaa52",
+    "size": "42",
+    "color": "green"
+}

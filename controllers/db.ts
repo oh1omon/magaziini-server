@@ -118,7 +118,6 @@ export const signUpUser = async (userObj: ISignUpUser) => {
  * @param updatesObj
  * @returns updated version of user
  */
-//FIXME NEED TO TEST
 export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
