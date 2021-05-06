@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 import { Item } from '../db-models/item/item-model'
 import { Order } from '../db-models/order/order-model'
 import { User } from '../db-models/user/user-model'
-import { ICreateItem, IFilterObj, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
-import Validator from './validator'
+import { ICreateItem, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
+import { createFilterObj } from './helper'
 
 let db: any
 
@@ -25,7 +25,7 @@ export const connectToMongo = () => {
 			useFindAndModify: false,
 			useCreateIndex: true
 		})
-		.catch(error => console.log(error))
+		.catch((error) => console.log(error))
 
 	//Setting connection instance to the db variable
 	db = mongoose.connection
@@ -41,18 +41,18 @@ export const connectToMongo = () => {
 	return db
 }
 
-/**
- * @param filter intakes the string by which field of document to do searches
- * @param value intakes the string of value to compare with the documents
- * @returns  filterObj */
-export const createFilterObj = (filter: string, value: any) => {
-	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
-		return null
-	}
-	let filterObj: IFilterObj = {}
-	filterObj[filter] = value
-	return filterObj
-}
+// /**
+//  * @param filter intakes the string by which field of document to do searches
+//  * @param value intakes the string of value to compare with the documents
+//  * @returns  filterObj */
+// export const createFilterObj = (filter: string, value: any) => {
+// 	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
+// 		return null
+// 	}
+// 	let filterObj: IFilterObj = {}
+// 	filterObj[filter] = value
+// 	return filterObj
+// }
 
 /**
  * @param filter intakes the string by which field of document to do searches

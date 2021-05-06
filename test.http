@@ -1,20 +1,15 @@
-POST http://127.0.0.1:8080/api/user/login
+POST http://localhost:8080/api/user/login
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test3.com", 
+	"email":"artem.szagarov@testd4.com", 
 	"password": "12345678"
 }
 
 ###
 
-POST http://127.0.0.1:8080/api/user/user
+POST http://127.0.0.1:8080/api/user/retrieve
 Content-Type: application/json
-
-# {
-# 	"email":"artem.zagarov@gmailw.com", 
-# 	"password": "12345678"
-# }
 
 ###
 
@@ -22,7 +17,7 @@ POST http://127.0.0.1:8080/api/user/register
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@test3.com", 
+	"email":"artem.szagarov@testd4.com", 
 	"password": "12345678",
 	"name": "osuzhdayu"
 }

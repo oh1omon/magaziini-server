@@ -1,6 +1,7 @@
 import passport from 'passport'
 import { IUser } from '../types'
 import { findOneUser, signUpUser, updateUser } from './db'
+import { userDocToObject } from './helper'
 import { initializePassport } from './passport-initialize'
 import Validator from './validator'
 
@@ -26,17 +27,7 @@ export const register = (req: any, res: any) => {
 			if (typeof r !== 'string') {
 				return res.json({
 					message: 'User created!',
-					user: {
-						_id: r._id,
-						email: r.email,
-						name: r.name,
-						orders: r.orders,
-						favorites: r.favorites,
-						type: r.type,
-						street: r.street,
-						city: r.city,
-						country: r.country
-					}
+					user: userDocToObject(r)
 				})
 			} else {
 				res.json({ err: r })
@@ -67,17 +58,7 @@ export const login = (req: any, res: any) => {
 			}
 			return res.json({
 				message: 'authenticated',
-				user: {
-					_id: user._id,
-					email: user.email,
-					name: user.name,
-					orders: user.orders,
-					favorites: user.favorites,
-					type: user.type,
-					street: user.street,
-					city: user.city,
-					country: user.country
-				}
+				user: userDocToObject(user)
 			})
 		})
 	})(req, res)
@@ -90,19 +71,7 @@ export const login = (req: any, res: any) => {
  */
 export const retrieve = (req: any, res: any) => {
 	if (req.user) {
-		return res.json({
-			user: {
-				_id: req.user._id,
-				email: req.user.email,
-				name: req.user.name,
-				orders: req.user.orders,
-				favorites: req.user.favorites,
-				type: req.user.type,
-				street: req.user.street,
-				city: req.user.city,
-				country: req.user.country
-			}
-		})
+		return res.json(userDocToObject(req.body))
 	}
 	return res.json({ user: null })
 }
@@ -129,22 +98,11 @@ export const signout = (req: any, res: any) => {
 
 export const update = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'no data submitted' })
-	if (!req.user)
-		return res.json({ err: 'you have to be logged in to change your profile, isnt that to easy????' })
+	if (!req.user) return res.json({ err: 'you have to be logged in to change your profile, isnt that to easy????' })
 	let updateObj = Validator.updateUser(req.body)
 	updateUser(req.user._id, updateObj)
 		.then((r: any) => {
-			return res.json({
-				id: r._id,
-				email: r.email,
-				name: r.name,
-				orders: r.orders,
-				favorites: r.favorites,
-				type: r.type,
-				street: r.street,
-				city: r.city,
-				country: r.country
-			})
+			return res.json(userDocToObject(r))
 		})
-		.catch(e => console.log(e))
+		.catch((e) => console.log(e))
 }

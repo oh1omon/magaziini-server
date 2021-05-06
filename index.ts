@@ -4,10 +4,9 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import session from 'express-session'
 import passport from 'passport'
+import path from 'path'
 import { connectToMongo } from './controllers/db'
-import itemRoutes from './routes/item-routes'
-import orderRoutes from './routes/order-routes'
-import authRoutes from './routes/user-routes'
+import mainRoutes from './routes/index'
 dotenv.config()
 
 //Extracting PORT & HOST variables from .env file
@@ -22,7 +21,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
 //Initializing Mongo
-let db = connectToMongo()
+const db = connectToMongo()
 
 //Initializing Express session
 app.use(
@@ -43,16 +42,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Adding information about authentication routes to express
-app.use('/api/user', authRoutes)
+app.use('/api', mainRoutes)
 
-//Adding information about item routes to express
-app.use('/api/item', itemRoutes)
-
-//Adding information about order routes to express
-app.use('/api/order', orderRoutes)
-
-app.get('/', (req, res) => {
-	res.json({ hello: 'hello' })
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '/index.html'))
+	// res.send('This is an api server only')
 })
 
 // // Only for testing
@@ -62,6 +56,6 @@ app.get('/', (req, res) => {
 // })
 
 //Starting server
-app.listen(PORT, HOST, () => {
-	console.log(`server is listening on ${HOST}:${PORT}`)
+app.listen(PORT, () => {
+	console.log(`server is listening on ${PORT}`)
 })
