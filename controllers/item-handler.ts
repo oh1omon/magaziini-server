@@ -1,7 +1,7 @@
 import { Item } from '../db-models/item/item-model'
 import { IItem } from '../types'
 import { createItem, deleteItem, updateItem } from './db'
-import { itemDocToObject } from './helper'
+import { createFilterObj, itemDocToObject } from './helper'
 import Validator from './validator'
 
 /**
@@ -65,7 +65,8 @@ export const remove = (req: any, res: any) => {
 }
 
 export const get = (req: any, res: any) => {
-	Item.find({}, (err, doc) => {
+	const filterObject = createFilterObj('_id', req.params.item, {})
+	Item.find(filterObject, (err, doc) => {
 		if (err) {
 			return res.json({ err: 'error has happened' })
 		}

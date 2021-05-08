@@ -6,6 +6,7 @@ const router = Router()
 router.post('/create', upload.single('photo'), add)
 router.post('/update', upload.single('photo'), update)
 router.post('/remove', remove)
+router.get('/:item', get)
 router.get('/', get)
 
 export default router

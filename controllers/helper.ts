@@ -5,9 +5,9 @@ import Validator from './validator'
  * @param filter intakes the string by which field of document to do searches
  * @param value intakes the string of value to compare with the documents
  * @returns  filterObj */
-export const createFilterObj = (filter: string, value: any) => {
+export const createFilterObj = (filter: string, value: any, baseObject: any = null) => {
 	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
-		return null
+		return baseObject !== null ? baseObject : null
 	}
 	const filterObj: IFilterObj = {}
 	filterObj[filter] = value
@@ -27,7 +27,7 @@ export const userDocToObject = (doc: any) => ({
 	type: doc.type,
 	street: doc.street,
 	city: doc.city,
-	country: doc.country
+	country: doc.country,
 })
 
 /**
@@ -47,5 +47,5 @@ export const itemDocToObject = (doc: any) => ({
 	color: doc.color,
 	availiableColors: doc.availiableColors,
 	season: doc.season,
-	structure: doc.structure
+	structure: doc.structure,
 })
