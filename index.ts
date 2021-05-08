@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import session from 'express-session'
 import passport from 'passport'
+import path from 'path'
 import { connectToMongo } from './controllers/db'
 import mainRoutes from './routes/index'
 dotenv.config()
@@ -44,14 +45,14 @@ app.use(passport.session())
 app.use('/api', mainRoutes)
 
 app.get('*', (req, res) => {
-	// res.sendFile(path.join(__dirname, '/index.html'))
-	res.send('This is an api server only')
+	res.sendFile(path.join(__dirname, '/index.html'))
+	// res.send('This is an api server only')
 })
 
 // // Only for testing
 // app.use(express.static(path.join(__dirname, 'build')))
 // app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'build/index.html'))
+// 	res.sendFile(path.join(__dirname, 'index.html'))
 // })
 
 //Starting server

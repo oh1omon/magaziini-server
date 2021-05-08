@@ -1,3 +1,4 @@
+import { Item } from '../db-models/item/item-model'
 import { IItem } from '../types'
 import { createItem, deleteItem, updateItem } from './db'
 import { itemDocToObject } from './helper'
@@ -38,6 +39,12 @@ export const update = (req: any, res: any) => {
 		: res.json({ err: 'you have no rights' })
 }
 
+/**
+ *
+ * @param req
+ * @param res
+ * @returns
+ */
 export const remove = (req: any, res: any) => {
 	if (req.user && req.user.type === 'admin') {
 		if (!Validator.objectId(req.body._id)) {
@@ -55,4 +62,14 @@ export const remove = (req: any, res: any) => {
 	} else {
 		res.json({ err: 'you have no rights' })
 	}
+}
+
+export const get = (req: any, res: any) => {
+	Item.find({}, (err, doc) => {
+		if (err) {
+			res.json({ err: 'error has happened' })
+		}
+		res.json(doc)
+	})
+	res.json()
 }
