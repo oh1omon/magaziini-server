@@ -67,9 +67,8 @@ export const remove = (req: any, res: any) => {
 export const get = (req: any, res: any) => {
 	Item.find({}, (err, doc) => {
 		if (err) {
-			res.json({ err: 'error has happened' })
+			return res.json({ err: 'error has happened' })
 		}
 		res.json(doc)
 	})
-	res.json()
 }
