@@ -18,7 +18,7 @@ export const add = (req: any, res: any) => {
 	if (req.file) req.body.image = req.file.path
 
 	if (!Validator.createItem(req.body)) {
-		return res.json({ message: 'Wrong data submitted' })
+		return res.json({ err: 'Wrong data submitted' })
 	}
 	req.user && req.user.type === 'admin'
 		? createItem(req.body)
