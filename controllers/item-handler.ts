@@ -20,6 +20,10 @@ export const add = (req: any, res: any) => {
 	if (!Validator.createItem(req.body)) {
 		return res.json({ err: 'Wrong data submitted' })
 	}
+	//TODO
+	console.log(req.user)
+	console.log(req.user.type)
+	//
 	req.user.type === 'admin'
 		? createItem(req.body)
 				.then((r: IItem) => {
