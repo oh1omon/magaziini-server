@@ -7,8 +7,8 @@ export const addSub = (req: any, res: any) => {
 	subAdd(req.body)
 		.then((r: any) =>
 			res.json({
-				message: 'Email Added',
+				type: 'info',
 			})
 		)
-		.catch((e) => console.log(e))
+		.catch((e) => res.json({ type: 'error' }))
 }

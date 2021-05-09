@@ -268,7 +268,7 @@ export const subAdd = async (email: string) => {
 				email: email,
 			},
 			(e: Error, r: ISubDocument) => {
-				if (e) return reject(e)
+				if (e) return resolve(e)
 				return resolve(r)
 			}
 		)
