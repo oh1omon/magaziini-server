@@ -56,15 +56,7 @@ class Validator {
 	}
 
 	createItem(item: any) {
-		return (
-			!!this.checkString(item.name) &&
-			!!this.checkString(item.description) &&
-			!!this.checkString(item.image) &&
-			!!this.checkString(item.color) &&
-			!!this.checkString(item.season) &&
-			!!this.checkNumber(item.inStock) &&
-			!!this.checkNumber(item.price)
-		)
+		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkNumber(item.price)
 	}
 
 	/**

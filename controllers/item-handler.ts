@@ -23,9 +23,12 @@ export const add = (req: any, res: any) => {
 	req.user && req.user.type === 'admin'
 		? createItem(req.body)
 				.then((r: IItem) => {
-					return res.json(itemDocToObject(r))
+					return res.json({ message: 'success', item: itemDocToObject(r) })
 				})
-				.catch((e: Error) => console.log(e))
+				.catch((e: Error) => {
+					console.log(e)
+					res.json({ err: 'Internal error' })
+				})
 		: res.json({ err: 'you have no rights' })
 }
 
