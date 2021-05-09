@@ -262,6 +262,11 @@ export const createOrder = async (orderObj: any) => {
  */
 export const subAdd = async (email: string) => {
 	return new Promise(async (resolve, reject) => {
+		const filterObj = createFilterObj('email', email)
+		if (await Sub.find(filterObj)) {
+			return resolve(new Error('already in DB'))
+		}
+
 		await Sub.create(
 			{
 				_id: new mongoose.Types.ObjectId(),
