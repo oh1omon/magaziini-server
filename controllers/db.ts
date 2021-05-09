@@ -197,7 +197,7 @@ export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
 		const filterObj = createFilterObj('_id', itemId)
 		await Item.findOneAndDelete(filterObj, {}, (err, res) => {
 			if (err) return reject(err.message)
-			return resolve(res)
+			return resolve(true)
 		})
 	})
 }
