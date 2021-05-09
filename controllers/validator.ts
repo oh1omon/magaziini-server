@@ -90,9 +90,7 @@ class Validator {
 	 * @returns True if object has passed the validation and False if have not passed
 	 */
 	createOrder(orderObj: any) {
-		return (
-			!!this.objectId(orderObj.itemId) && !!this.checkString(orderObj.size) && !!this.objectId(orderObj.submitter)
-		)
+		return !!this.objectId(orderObj.itemId) && !!this.checkString(orderObj.size)
 	}
 
 	/**

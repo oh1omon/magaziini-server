@@ -10,7 +10,7 @@ export const create = (req: any, res: any) => {
 				message: 'Order created!',
 				order: {
 					_id: r._id,
-					submitter: r.submitter,
+					submitter: req.user._id,
 					itemId: r.itemId,
 					size: r.size,
 					color: r.color,
