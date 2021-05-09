@@ -24,6 +24,7 @@ export const userDocToObject = (doc: any) => ({
 	email: doc.email,
 	orders: doc.orders,
 	favorites: doc.favorites,
+	name: doc.name,
 	type: doc.type,
 	street: doc.street,
 	city: doc.city,
