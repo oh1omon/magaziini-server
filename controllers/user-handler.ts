@@ -25,9 +25,18 @@ export const register = (req: any, res: any) => {
 	signUpUser(req.body)
 		.then((r: string | IUser) => {
 			if (typeof r !== 'string') {
-				return res.json({
-					message: 'User created!',
-					user: userDocToObject(r),
+				// return res.json({
+				// 	message: 'User created!',
+				// 	user: userDocToObject(r),
+				// })
+				req.login(r, function (err: Error) {
+					if (err) {
+						return res.json({ message: 'internal error' })
+					}
+					return res.json({
+						message: 'authenticated',
+						user: userDocToObject(r),
+					})
 				})
 			} else {
 				res.json({ message: r })
