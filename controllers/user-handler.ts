@@ -30,7 +30,7 @@ export const register = (req: any, res: any) => {
 					user: userDocToObject(r),
 				})
 			} else {
-				res.json({ err: r })
+				res.json({ message: r })
 			}
 		})
 		.catch((e: Error) => console.log(e))
