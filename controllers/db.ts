@@ -263,8 +263,9 @@ export const createOrder = async (orderObj: any) => {
 export const subAdd = async (email: string) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('email', email)
-		if (await Sub.find(filterObj)) {
-			return resolve(new Error('already in DB'))
+		const found = await Sub.findOne(filterObj)
+		if (found) {
+			return reject(new Error('already in DB'))
 		}
 
 		await Sub.create(
@@ -273,7 +274,7 @@ export const subAdd = async (email: string) => {
 				email: email,
 			},
 			(e: Error, r: ISubDocument) => {
-				if (e) return resolve(e)
+				if (e) return reject(e)
 				return resolve(r)
 			}
 		)
