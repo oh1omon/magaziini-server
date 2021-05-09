@@ -7,12 +7,15 @@ export const create = (req: any, res: any) => {
 	createOrder(req.body)
 		.then((r: any) =>
 			res.json({
-				_id: r._id,
-				submitter: r.submitter,
-				itemId: r.itemId,
-				size: r.size,
-				color: r.color,
-				status: r.status,
+				message: 'Order created!',
+				order: {
+					_id: r._id,
+					submitter: r.submitter,
+					itemId: r.itemId,
+					size: r.size,
+					color: r.color,
+					status: r.status,
+				},
 			})
 		)
 		.catch((e) => console.log(e))
