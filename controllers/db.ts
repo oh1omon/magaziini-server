@@ -157,7 +157,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 				name: itemObj.name,
 				description: itemObj.description,
 				sex: itemObj.sex || '',
-				image: itemObj.image,
+				image: itemObj.image || '',
 				sizes: itemObj.sizes,
 				inStock: itemObj.inStock || 1,
 				price: itemObj.price,

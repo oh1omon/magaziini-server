@@ -22,7 +22,6 @@ export const add = (req: any, res: any) => {
 	}
 	//TODO
 	console.log(req.user)
-	console.log(req.user.type)
 	//
 	req.user.type === 'admin'
 		? createItem(req.body)
