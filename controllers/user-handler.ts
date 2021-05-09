@@ -27,7 +27,7 @@ export const register = (req: any, res: any) => {
 			if (typeof r !== 'string') {
 				return res.json({
 					message: 'User created!',
-					user: userDocToObject(r)
+					user: userDocToObject(r),
 				})
 			} else {
 				res.json({ err: r })
@@ -58,7 +58,7 @@ export const login = (req: any, res: any) => {
 			}
 			return res.json({
 				message: 'authenticated',
-				user: userDocToObject(user)
+				user: userDocToObject(user),
 			})
 		})
 	})(req, res)
@@ -71,7 +71,7 @@ export const login = (req: any, res: any) => {
  */
 export const retrieve = (req: any, res: any) => {
 	if (req.user) {
-		return res.json(userDocToObject(req.body))
+		return res.json(userDocToObject(req.user))
 	}
 	return res.json({ user: null })
 }
