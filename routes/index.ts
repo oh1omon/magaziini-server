@@ -6,7 +6,7 @@ import userRoutes from './user-routes'
 const router = express.Router()
 
 //Setting serve to be able serve static images
-router.use('/images', express.static('../images'))
+router.use('/images', express.static('dist/images'))
 router.use('/user', userRoutes)
 router.use('/order', orderRoutes)
 router.use('/item', itemRoutes)
