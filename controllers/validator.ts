@@ -56,7 +56,7 @@ class Validator {
 	}
 
 	createItem(item: any) {
-		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkString(item.price)
+		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkNumber(item.price)
 	}
 
 	/**
