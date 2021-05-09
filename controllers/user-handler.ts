@@ -71,7 +71,7 @@ export const login = (req: any, res: any) => {
  */
 export const retrieve = (req: any, res: any) => {
 	if (req.user) {
-		return res.json(userDocToObject(req.user))
+		return res.json({ user: userDocToObject(req.user) })
 	}
 	return res.json({ user: null })
 }
