@@ -58,7 +58,10 @@ export const remove = (req: any, res: any) => {
 					res.json({ err: 'No item with this id found' })
 				}
 			})
-			.catch((e) => console.log(e))
+			.catch((e) => {
+				res.json({ err: 'internal error', e })
+				return console.log(e)
+			})
 	} else {
 		res.json({ err: 'you have no rights' })
 	}
