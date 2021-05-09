@@ -91,9 +91,7 @@ class Validator {
 	 */
 	createOrder(orderObj: any) {
 		return (
-			!!this.checkString(orderObj.itemId) &&
-			!!this.checkString(orderObj.size) &&
-			!!this.objectId(orderObj.submitter)
+			!!this.objectId(orderObj.itemId) && !!this.checkString(orderObj.size) && !!this.objectId(orderObj.submitter)
 		)
 	}
 
