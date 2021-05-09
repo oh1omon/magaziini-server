@@ -15,8 +15,7 @@ const HOST: string = process.env.HOST!
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-// to ensure requests made on the frontend are processed on the backend for now add localhost:3000 to .env as ALLOWED_ORIGINS
-// app.use(cors({ credentials: true, origin: process.env.ALLOWED_ORIGINS }))
+
 app.use(cors())
 
 //Initializing Mongo

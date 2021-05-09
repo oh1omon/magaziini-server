@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { Item } from '../db-models/item/item-model'
 import { Order } from '../db-models/order/order-model'
+import { Sub } from '../db-models/subs/subs-model'
 import { User } from '../db-models/user/user-model'
-import { ICreateItem, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
+import { ICreateItem, IOrderDocument, ISignUpUser, ISubDocument, ItemDocument, UserDocument } from '../types'
 import { createFilterObj } from './helper'
 
 let db: any
@@ -230,7 +231,6 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 	})
 }
 
-//FIXME NEED TO TEST
 /**
  *
  * @param orderObj
@@ -248,6 +248,26 @@ export const createOrder = async (orderObj: any) => {
 				status: 'submitted',
 			},
 			(e: Error, r: IOrderDocument) => {
+				if (e) return reject(e)
+				return resolve(r)
+			}
+		)
+	})
+}
+
+/**
+ *
+ * @param orderObj
+ * @returns {IOrderDocument} created document
+ */
+export const subAdd = async (email: string) => {
+	return new Promise(async (resolve, reject) => {
+		await Sub.create(
+			{
+				_id: new mongoose.Types.ObjectId(),
+				email: email,
+			},
+			(e: Error, r: ISubDocument) => {
 				if (e) return reject(e)
 				return resolve(r)
 			}
