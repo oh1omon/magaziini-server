@@ -3,11 +3,11 @@ import multer from 'multer'
 //Setting a config for saving files to server
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, './images/')
+		cb(null, './dist/images/')
 	},
 	filename: function (req, file, cb) {
 		cb(null, `${new Date().toISOString()}-${file.originalname}`)
-	}
+	},
 })
 
 //Setting a config to filter files by type and size
@@ -21,9 +21,9 @@ const fileFilter = (req: any, file: any, cb: any) => {
 const upload = multer({
 	storage,
 	limits: {
-		fileSize: 1024 * 1024 * 2
+		fileSize: 1024 * 1024 * 2,
 	},
-	fileFilter
+	fileFilter,
 })
 
 export default upload
