@@ -102,7 +102,7 @@ export const update = (req: any, res: any) => {
 	let updateObj = Validator.updateUser(req.body)
 	updateUser(req.user._id, updateObj)
 		.then((r: any) => {
-			return res.json(userDocToObject(r))
+			return res.json({ message: 'update successful', user: userDocToObject(r) })
 		})
 		.catch((e) => console.log(e))
 }
