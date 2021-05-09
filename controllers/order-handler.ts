@@ -8,11 +8,12 @@ export const create = (req: any, res: any) => {
 		.then((r: any) =>
 			res.json({
 				_id: r._id,
+				submitter: r.submitter,
 				itemId: r.itemId,
 				size: r.size,
 				color: r.color,
-				status: r.status
+				status: r.status,
 			})
 		)
-		.catch(e => console.log(e))
+		.catch((e) => console.log(e))
 }

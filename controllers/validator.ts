@@ -45,11 +45,7 @@ class Validator {
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: any) {
-		return !!(
-			this.name(signUpObj.name) &&
-			this.email(signUpObj.email) &&
-			this.password(signUpObj.password)
-		)
+		return !!(this.name(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
 	}
 
 	/**
@@ -97,7 +93,7 @@ class Validator {
 		return (
 			!!this.checkString(orderObj.itemId) &&
 			!!this.checkString(orderObj.size) &&
-			!!this.checkString(orderObj.color)
+			!!this.objectId(orderObj.submitter)
 		)
 	}
 

@@ -23,7 +23,7 @@ export const connectToMongo = () => {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useFindAndModify: false,
-			useCreateIndex: true
+			useCreateIndex: true,
 		})
 		.catch((error) => console.log(error))
 
@@ -91,7 +91,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				type: 'default',
 				street: ',',
 				city: '',
-				country: ''
+				country: '',
 			},
 			(err: Error, doc: UserDocument) => {
 				if (err) {
@@ -106,7 +106,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 					type: doc.type,
 					street: doc.street,
 					city: doc.city,
-					country: doc.country
+					country: doc.country,
 				})
 			}
 		)
@@ -138,7 +138,7 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 				type: doc.type,
 				street: doc.street,
 				city: doc.city,
-				country: doc.country
+				country: doc.country,
 			})
 		})
 	})
@@ -163,7 +163,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 				color: itemObj.color,
 				availiableColors: itemObj.availiableColors,
 				season: itemObj.season,
-				structure: itemObj.structure
+				structure: itemObj.structure,
 			},
 			(err: Error, doc: ItemDocument) => {
 				if (err) {
@@ -181,7 +181,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 					color: doc.color,
 					availiableColors: doc.availiableColors,
 					season: doc.season,
-					structure: doc.structure
+					structure: doc.structure,
 				})
 			}
 		)
@@ -224,7 +224,7 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 				color: doc.color,
 				availiableColors: doc.availiableColors,
 				season: doc.season,
-				structure: doc.structure
+				structure: doc.structure,
 			})
 		})
 	})
@@ -241,10 +241,11 @@ export const createOrder = async (orderObj: any) => {
 		await Order.create(
 			{
 				_id: new mongoose.Types.ObjectId(),
+				submitter: orderObj.submitter,
 				itemId: orderObj.itemId,
 				size: orderObj.size,
-				color: orderObj.color,
-				status: 'submitted'
+				color: orderObj.color || 'default',
+				status: 'submitted',
 			},
 			(e: Error, r: IOrderDocument) => {
 				if (e) return reject(e)
