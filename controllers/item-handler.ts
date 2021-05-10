@@ -16,7 +16,7 @@ export const add = (req: any, res: any) => {
 	}
 
 	if (!Validator.createItem(req.body)) {
-		return res.json({ err: 'Wrong data submitted', err1: req.body })
+		return res.json({ err: 'Wrong data submitted' })
 	}
 	req.user.type === 'admin'
 		? createItem(req.body)
