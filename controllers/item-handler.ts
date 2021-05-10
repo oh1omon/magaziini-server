@@ -15,8 +15,6 @@ export const add = (req: any, res: any) => {
 		res.json({ err: 'No data provided' })
 	}
 
-	if (req.file) req.body.image = req.file.path.substring('dist/'.length)
-
 	if (!Validator.createItem(req.body)) {
 		return res.json({ err: 'Wrong data submitted' })
 	}
@@ -34,7 +32,6 @@ export const add = (req: any, res: any) => {
 
 export const update = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'No data provided' })
-	if (req.file) req.body.image = req.file.path.substring('dist/'.length)
 	req.user && req.user.type === 'admin'
 		? updateItem(req.body._id, Validator.updateItem(req.body)).then((r: IItem) => {
 				return res.json(itemDocToObject(r))
