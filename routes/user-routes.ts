@@ -4,7 +4,7 @@ const router = Router()
 
 router.post('/register', register)
 router.post('/login', login)
-router.post('/user', retrieve)
+router.post('/retrieve', retrieve)
 router.post('/signout', signout)
 router.post('/update', update)
 

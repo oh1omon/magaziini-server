@@ -2,9 +2,10 @@ import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { Item } from '../db-models/item/item-model'
 import { Order } from '../db-models/order/order-model'
+import { Sub } from '../db-models/subs/subs-model'
 import { User } from '../db-models/user/user-model'
-import { ICreateItem, IFilterObj, IOrderDocument, ISignUpUser, ItemDocument, UserDocument } from '../types'
-import Validator from './validator'
+import { ICreateItem, IOrderDocument, ISignUpUser, ISubDocument, ItemDocument, UserDocument } from '../types'
+import { createFilterObj } from './helper'
 
 let db: any
 
@@ -23,9 +24,9 @@ export const connectToMongo = () => {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useFindAndModify: false,
-			useCreateIndex: true
+			useCreateIndex: true,
 		})
-		.catch(error => console.log(error))
+		.catch((error) => console.log(error))
 
 	//Setting connection instance to the db variable
 	db = mongoose.connection
@@ -41,18 +42,18 @@ export const connectToMongo = () => {
 	return db
 }
 
-/**
- * @param filter intakes the string by which field of document to do searches
- * @param value intakes the string of value to compare with the documents
- * @returns  filterObj */
-export const createFilterObj = (filter: string, value: any) => {
-	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
-		return null
-	}
-	let filterObj: IFilterObj = {}
-	filterObj[filter] = value
-	return filterObj
-}
+// /**
+//  * @param filter intakes the string by which field of document to do searches
+//  * @param value intakes the string of value to compare with the documents
+//  * @returns  filterObj */
+// export const createFilterObj = (filter: string, value: any) => {
+// 	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
+// 		return null
+// 	}
+// 	let filterObj: IFilterObj = {}
+// 	filterObj[filter] = value
+// 	return filterObj
+// }
 
 /**
  * @param filter intakes the string by which field of document to do searches
@@ -91,7 +92,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				type: 'default',
 				street: ',',
 				city: '',
-				country: ''
+				country: '',
 			},
 			(err: Error, doc: UserDocument) => {
 				if (err) {
@@ -106,7 +107,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 					type: doc.type,
 					street: doc.street,
 					city: doc.city,
-					country: doc.country
+					country: doc.country,
 				})
 			}
 		)
@@ -138,7 +139,7 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 				type: doc.type,
 				street: doc.street,
 				city: doc.city,
-				country: doc.country
+				country: doc.country,
 			})
 		})
 	})
@@ -155,15 +156,15 @@ export const createItem = async (itemObj: ICreateItem) => {
 				_id: new mongoose.Types.ObjectId(),
 				name: itemObj.name,
 				description: itemObj.description,
-				sex: itemObj.sex,
-				image: itemObj.image,
+				sex: itemObj.sex || '',
+				image: itemObj.image || '',
 				sizes: itemObj.sizes,
-				inStock: itemObj.inStock,
+				inStock: itemObj.inStock || 1,
 				price: itemObj.price,
-				color: itemObj.color,
-				availiableColors: itemObj.availiableColors,
-				season: itemObj.season,
-				structure: itemObj.structure
+				color: itemObj.color || '',
+				availiableColors: itemObj.availiableColors || [],
+				season: itemObj.season || '',
+				structure: itemObj.structure || {},
 			},
 			(err: Error, doc: ItemDocument) => {
 				if (err) {
@@ -181,7 +182,7 @@ export const createItem = async (itemObj: ICreateItem) => {
 					color: doc.color,
 					availiableColors: doc.availiableColors,
 					season: doc.season,
-					structure: doc.structure
+					structure: doc.structure,
 				})
 			}
 		)
@@ -196,7 +197,7 @@ export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
 		const filterObj = createFilterObj('_id', itemId)
 		await Item.findOneAndDelete(filterObj, {}, (err, res) => {
 			if (err) return reject(err.message)
-			return resolve(res)
+			return resolve(true)
 		})
 	})
 }
@@ -224,13 +225,12 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 				color: doc.color,
 				availiableColors: doc.availiableColors,
 				season: doc.season,
-				structure: doc.structure
+				structure: doc.structure,
 			})
 		})
 	})
 }
 
-//FIXME NEED TO TEST
 /**
  *
  * @param orderObj
@@ -241,12 +241,39 @@ export const createOrder = async (orderObj: any) => {
 		await Order.create(
 			{
 				_id: new mongoose.Types.ObjectId(),
+				submitter: orderObj.submitter,
 				itemId: orderObj.itemId,
 				size: orderObj.size,
-				color: orderObj.color,
-				status: 'submitted'
+				color: orderObj.color || 'default',
+				status: 'submitted',
 			},
 			(e: Error, r: IOrderDocument) => {
+				if (e) return reject(e)
+				return resolve(r)
+			}
+		)
+	})
+}
+
+/**
+ *
+ * @param orderObj
+ * @returns {IOrderDocument} created document
+ */
+export const subAdd = async (email: string) => {
+	return new Promise(async (resolve, reject) => {
+		const filterObj = createFilterObj('email', email)
+		const found = await Sub.findOne(filterObj)
+		if (found) {
+			return reject(new Error('already in DB'))
+		}
+
+		await Sub.create(
+			{
+				_id: new mongoose.Types.ObjectId(),
+				email: email,
+			},
+			(e: Error, r: ISubDocument) => {
 				if (e) return reject(e)
 				return resolve(r)
 			}

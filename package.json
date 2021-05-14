@@ -2,10 +2,16 @@
 	"name": "magaziini-server",
 	"version": "1.0.0",
 	"description": "",
+	"engines": {
+		"node": "15.14.0"
+	},
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon --watch './**/*.ts' --exec 'ts-node' index.ts",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node dist/index.js",
+		"postinstall": "tsc",
+		"dev": "nodemon --watch './**/*.ts' --exec 'ts-node' index.ts ",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"tsc": "tsc"
 	},
 	"keywords": [],
 	"author": "Arttu Zagarov aka oh1omon",
@@ -18,14 +24,17 @@
 		"express": "^4.17.1",
 		"express-session": "^1.17.1",
 		"mongoose": "^5.12.3",
+		"multer": "^1.4.2",
 		"passport": "^0.4.1",
-		"passport-local": "^1.0.0"
+		"passport-local": "^1.0.0",
+		"typescript": "^4.2.4"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^3.0.0",
 		"@types/cors": "^2.8.10",
 		"@types/express": "^4.17.11",
 		"@types/express-session": "^1.17.3",
+		"@types/multer": "^1.4.5",
 		"@types/node": "^14.14.37",
 		"@types/passport": "^1.0.6",
 		"@types/passport-local": "^1.0.33",

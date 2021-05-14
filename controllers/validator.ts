@@ -45,11 +45,7 @@ class Validator {
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: any) {
-		return !!(
-			this.name(signUpObj.name) &&
-			this.email(signUpObj.email) &&
-			this.password(signUpObj.password)
-		)
+		return !!(this.name(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
 	}
 
 	/**
@@ -60,15 +56,7 @@ class Validator {
 	}
 
 	createItem(item: any) {
-		return (
-			!!this.checkString(item.name) &&
-			!!this.checkString(item.description) &&
-			!!this.checkString(item.image) &&
-			!!this.checkString(item.color) &&
-			!!this.checkString(item.season) &&
-			!!this.checkNumber(item.inStock) &&
-			!!this.checkNumber(item.price)
-		)
+		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkString(item.price)
 	}
 
 	/**
@@ -94,11 +82,7 @@ class Validator {
 	 * @returns True if object has passed the validation and False if have not passed
 	 */
 	createOrder(orderObj: any) {
-		return (
-			!!this.checkString(orderObj.itemId) &&
-			!!this.checkString(orderObj.size) &&
-			!!this.checkString(orderObj.color)
-		)
+		return !!this.objectId(orderObj.itemId) && !!this.checkString(orderObj.size)
 	}
 
 	/**

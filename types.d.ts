@@ -73,3 +73,12 @@ interface IOrder {
 }
 
 type IOrderDocument = IOrder & Document
+
+//Interfaces for Subs Schema and model
+
+interface ISub {
+	_id: mongoose.Schema.Types.ObjectId
+	email: string
+}
+
+type ISubDocument = ISub & Document
