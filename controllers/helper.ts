@@ -46,7 +46,7 @@ export const itemDocToObject = (doc: any) => ({
 	inStock: doc.inStock,
 	price: doc.price,
 	color: doc.color,
-	availiableColors: doc.availiableColors,
+	availableColors: doc.availableColors,
 	season: doc.season,
 	structure: doc.structure,
 })

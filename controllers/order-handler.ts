@@ -3,7 +3,7 @@ import Validator from './validator'
 
 export const create = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'No data submitted' })
-	if (!Validator.createOrder(req.body)) return res.json({ message: 'I bet you forgot to mention size :D' })
+	if (!Validator.createOrder(req.body)) return res.json({ message: 'I bet you have forgot to mention size :D' })
 	const orderObj = req.body
 	orderObj.submitter = req?.user?._id?.toString() || ''
 	createOrder(orderObj)

@@ -11,9 +11,9 @@ const ItemSchema: Schema = new Schema({
 	inStock: Number,
 	price: Number,
 	color: String,
-	availiableColors: { type: [String], required: false },
+	availableColors: { type: [String], required: false },
 	season: String,
-	structure: Object
+	structure: Object,
 })
 
 export const Item: Model<ItemDocument> = model<ItemDocument>('Item', ItemSchema)

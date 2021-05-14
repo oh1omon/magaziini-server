@@ -90,7 +90,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				favorites: [],
 				orders: [],
 				type: 'default',
-				street: ',',
+				street: '',
 				city: '',
 				country: '',
 			},
