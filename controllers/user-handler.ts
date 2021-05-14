@@ -59,7 +59,7 @@ export const login = (req: any, res: any) => {
 			return res.json({ message: err.message })
 		}
 		if (!user) {
-			return res.json({ message: 'user not found' })
+			return res.json({ message: 'wrong email or password' })
 		}
 		req.login(user, function (err: Error) {
 			if (err) {
@@ -107,7 +107,7 @@ export const signout = (req: any, res: any) => {
 
 export const update = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'no data submitted' })
-	if (!req.user) return res.json({ err: 'you have to be logged in to change your profile, isnt that to easy????' })
+	if (!req.user) return res.json({ err: 'you have to be logged in to change your profile' })
 	let updateObj = Validator.updateUser(req.body)
 	updateUser(req.user._id, updateObj)
 		.then((r: any) => {
