@@ -21,7 +21,7 @@ export const add = (req: any, res: any) => {
 	req.user.type === 'admin'
 		? createItem(req.body)
 				.then((r: IItem) => {
-					return res.json({ message: 'success', item: itemDocToObject(r) })
+					return res.json({ message: 'Item has been added successfully', item: itemDocToObject(r) })
 				})
 				.catch((e: Error) => {
 					console.log(e)
