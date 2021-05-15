@@ -106,8 +106,8 @@ export const signout = (req: any, res: any) => {
 }
 
 export const update = (req: any, res: any) => {
-	if (!req.body) return res.json({ err: 'No data submitted!' })
-	if (!req.user) return res.json({ err: 'You have to be logged in to change your profile!' })
+	if (!req.body) return res.json({ message: 'No data submitted!' })
+	if (!req.user) return res.json({ message: 'You have to be logged in to change your profile!' })
 	let updateObj = Validator.updateUser(req.body)
 	updateUser(req.user._id, updateObj)
 		.then((r: any) => {
