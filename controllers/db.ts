@@ -124,7 +124,8 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.orders) {
 			updatesObj.$push = { orders: updatesObj.orders }
-			updatesObj.orders = undefined
+			delete updatesObj.orders
+			console.log(updatesObj.orders)
 		}
 		if (updatesObj.password) {
 			updatesObj.password = await bcrypt.hash(updatesObj.password, 10)
