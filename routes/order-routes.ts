@@ -1,7 +1,8 @@
 import { Router } from 'express'
-import { create } from '../controllers/order-handler'
+import { create, retrieve } from '../controllers/order-handler'
 const router = Router()
 
 router.post('/create', create)
+router.get('/retrieve', retrieve)
 
 export default router

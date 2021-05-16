@@ -122,11 +122,6 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
-		if (updatesObj.orders) {
-			updatesObj.$push = { orders: updatesObj.orders }
-			delete updatesObj.orders
-			console.log(updatesObj.orders)
-		}
 		if (updatesObj.password) {
 			updatesObj.password = await bcrypt.hash(updatesObj.password, 10)
 		}
@@ -255,6 +250,24 @@ export const createOrder = async (orderObj: any) => {
 				return resolve(r)
 			}
 		)
+	})
+}
+
+/**
+ *
+ * @param id
+ * @returns {IOrderDocument[]} found documents
+ */
+export const retrieveOrders = async (id = '') => {
+	return new Promise(async (resolve, reject) => {
+		let baseObj = {}
+		if (id) {
+			baseObj = createFilterObj('submitter', id, baseObj)
+		}
+		await Order.find(baseObj, (e: Error, r: IOrderDocument) => {
+			if (e) return reject(e)
+			return resolve(r)
+		})
 	})
 }
 
