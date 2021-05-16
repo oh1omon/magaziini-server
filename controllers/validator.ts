@@ -99,7 +99,7 @@ class Validator {
 		if (typeof itemObj.color === 'string') resObj.color = itemObj.color
 		if (typeof itemObj.season === 'string') resObj.season = itemObj.season
 		if (typeof itemObj.inStock === 'number') resObj.inStock = itemObj.inStock
-		if (typeof itemObj.price === 'number') resObj.price = itemObj.price
+		if (resObj.price) resObj.price = itemObj.price
 		return resObj
 	}
 	objectId(id: string) {
