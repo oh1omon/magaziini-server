@@ -100,8 +100,10 @@ class Validator {
 		if (typeof itemObj.season === 'string') resObj.season = itemObj.season
 		if (typeof itemObj.inStock === 'number') resObj.inStock = itemObj.inStock
 		if (resObj.price) resObj.price = itemObj.price
+		console.log(itemObj)
 		return resObj
 	}
+
 	objectId(id: string) {
 		if (typeof id === 'string') {
 			return !!id.match(/^[0-9a-fA-F]{24}$/)
