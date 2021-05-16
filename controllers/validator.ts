@@ -100,6 +100,7 @@ class Validator {
 		if (typeof itemObj.season === 'string') resObj.season = itemObj.season
 		if (typeof itemObj.inStock === 'number') resObj.inStock = itemObj.inStock
 		if (itemObj.price) resObj.price = itemObj.price
+		if (itemObj.sizes) resObj.sizes = itemObj.sizes
 
 		return resObj
 	}
