@@ -123,7 +123,7 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.orders) {
-			updatesObj.$push = { orders: updatesObj.orders[0] }
+			updatesObj.$push = { orders: updatesObj.orders }
 			delete updatesObj.orders
 		}
 		if (updatesObj.password) {
