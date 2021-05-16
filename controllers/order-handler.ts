@@ -1,4 +1,5 @@
 import { createOrder } from './db'
+import { update } from './user-handler'
 import Validator from './validator'
 
 export const create = (req: any, res: any) => {
@@ -7,8 +8,9 @@ export const create = (req: any, res: any) => {
 	const orderObj = req.body
 	orderObj.submitter = req?.user?._id?.toString() || ''
 	createOrder(orderObj)
-		.then((r: any) =>
-			res.json({
+		.then((r: any) => {
+			req?.user?._id && update(req.user._id, { orders: r._id })
+			return res.json({
 				message: 'Order created!',
 				order: {
 					_id: r._id,
@@ -19,6 +21,8 @@ export const create = (req: any, res: any) => {
 					status: r.status,
 				},
 			})
-		)
+		})
 		.catch((e) => console.log(e))
 }
+
+// export const retrieve (req:any,res:any)=>{}
