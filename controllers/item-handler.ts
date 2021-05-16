@@ -31,12 +31,12 @@ export const add = (req: any, res: any) => {
 }
 
 export const update = (req: any, res: any) => {
-	if (!req.body) return res.json({ err: 'No data provided' })
+	if (!req.body) return res.json({ message: 'No data provided' })
 	req.user && req.user.type === 'admin'
 		? updateItem(req.body._id, Validator.updateItem(req.body)).then((r: IItem) => {
-				return res.json(itemDocToObject(r))
+				return res.json({ message: 'Item has been updated successfully', item: itemDocToObject(r) })
 		  })
-		: res.json({ err: 'you have no rights' })
+		: res.json({ message: 'you have to be an admin to update items' })
 }
 
 /**
