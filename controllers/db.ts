@@ -122,7 +122,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: any) => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
-		if (updatesObj.orders) updatesObj.orders = { $push: updatesObj.orders }
+		if (updatesObj.orders) updatesObj.orders = { $push: updatesObj.orders[0] }
 		if (updatesObj.favorites) updatesObj.favorites = { $push: updatesObj.favorites }
 		if (updatesObj.password) {
 			updatesObj.password = await bcrypt.hash(updatesObj.password, 10)
