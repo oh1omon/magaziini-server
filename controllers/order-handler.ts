@@ -5,11 +5,11 @@ export const create = (req: any, res: any) => {
 	if (!req.body) return res.json({ err: 'No data submitted' })
 	if (!Validator.createOrder(req.body)) return res.json({ message: 'I bet you have forgot to mention size :D' })
 	const orderObj = req.body
-	orderObj.submitter || (orderObj.submitter = req?.user?.id || '')
-	orderObj.submitterName || (orderObj.submitterName = req?.user?.id)
-	orderObj.street || (orderObj.street = req?.user?.id)
-	orderObj.city || (orderObj.city = req?.user?.id)
-	orderObj.country || (orderObj.country = req?.user?.id)
+	orderObj.submitter = req?.user?.id || ''
+	orderObj.submitterName || (orderObj.submitterName = req?.user?.name)
+	orderObj.street || (orderObj.street = req?.user?.street)
+	orderObj.city || (orderObj.city = req?.user?.city)
+	orderObj.country || (orderObj.country = req?.user?.country)
 	createOrder(orderObj)
 		.then((r: any) => {
 			return res.json({
