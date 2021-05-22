@@ -160,9 +160,6 @@ export const createItem = async (itemObj: ICreateItem) => {
 				inStock: itemObj.inStock || 1,
 				price: itemObj.price,
 				color: itemObj.color || '',
-				availiableColors: itemObj.availiableColors || [],
-				season: itemObj.season || '',
-				structure: itemObj.structure || {},
 			},
 			(err: Error, doc: ItemDocument) => {
 				if (err) {
@@ -178,9 +175,6 @@ export const createItem = async (itemObj: ICreateItem) => {
 					inStock: doc.inStock,
 					price: doc.price,
 					color: doc.color,
-					availiableColors: doc.availiableColors,
-					season: doc.season,
-					structure: doc.structure,
 				})
 			}
 		)

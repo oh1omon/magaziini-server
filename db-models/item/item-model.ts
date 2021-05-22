@@ -4,16 +4,13 @@ import { ItemDocument } from '../../types'
 const ItemSchema: Schema = new Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	name: String,
-	description: String,
+	description: { type: String, maxLength: 500 },
 	sex: String,
 	image: String,
 	sizes: [String],
 	inStock: Number,
 	price: Number,
 	color: String,
-	availableColors: { type: [String], required: false },
-	season: String,
-	structure: Object,
 })
 
 export const Item: Model<ItemDocument> = model<ItemDocument>('Item', ItemSchema)

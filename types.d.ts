@@ -41,9 +41,6 @@ interface IItem {
 	inStock: number
 	price: number
 	color: string
-	availiableColors: string[]
-	season: string
-	structure: object
 }
 
 type ItemDocument = IItem & Document
@@ -57,9 +54,6 @@ interface ICreateItem {
 	inStock: number
 	price: number
 	color: string
-	availiableColors?: string[]
-	season: string
-	structure: object
 }
 
 //Interfaces for Order Schema and Model
