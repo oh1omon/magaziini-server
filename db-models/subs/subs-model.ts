@@ -6,6 +6,7 @@ const SubSchema: Schema = new Schema({
 	email: {
 		type: String,
 		unique: true,
+		maxLength: [50, 'Too long email address'],
 	},
 })
 
