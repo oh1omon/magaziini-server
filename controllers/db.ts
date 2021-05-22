@@ -228,6 +228,10 @@ export const createOrder = async (orderObj: any) => {
 			{
 				_id: new mongoose.Types.ObjectId(),
 				submitter: orderObj.submitter,
+				submitterName: orderObj.submitterName,
+				street: orderObj.street,
+				city: orderObj.city,
+				country: orderObj.country,
 				itemId: orderObj.itemId,
 				size: orderObj.size,
 				color: orderObj.color || 'default',

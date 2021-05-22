@@ -59,6 +59,11 @@ interface ICreateItem {
 interface IOrder {
 	_id: mongoose.Schema.Types.ObjectId
 	itemId: mongoose.Schema.Types.ObjectId
+	submitter: string
+	submitterName: string
+	street: string
+	city: string
+	country: string
 	size: string
 	color: string
 	status: string
