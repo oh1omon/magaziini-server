@@ -67,13 +67,13 @@ class Validator {
 	 */
 	updateUser(updateObj: any) {
 		let resObj: any = {}
-		if (typeof updateObj.password === 'string') resObj.password = updateObj.password
-		if (typeof updateObj.name === 'string') resObj.name = updateObj.name
-		if (typeof updateObj.street === 'string') resObj.street = updateObj.street
-		if (typeof updateObj.city === 'string') resObj.city = updateObj.city
-		if (typeof updateObj.country === 'string') resObj.country = updateObj.country
-		if (resObj.favorites) resObj.favorites = updateObj.favorites
-		if (resObj.orders) resObj.orders = updateObj.orders
+		if (updateObj.password && typeof updateObj.password === 'string') resObj.password = updateObj.password
+		if (updateObj.name && typeof updateObj.name === 'string') resObj.name = updateObj.name
+		if (updateObj.street && typeof updateObj.street === 'string') resObj.street = updateObj.street
+		if (updateObj.city && typeof updateObj.city === 'string') resObj.city = updateObj.city
+		if (updateObj.country && typeof updateObj.country === 'string') resObj.country = updateObj.country
+		if (updateObj.favorites) resObj.favorites = updateObj.favorites
+		if (updateObj.orders) resObj.orders = updateObj.orders
 		return resObj
 	}
 

@@ -40,7 +40,7 @@ export const register = (req: any, res: any) => {
 		})
 		.catch((e: Error) => {
 			console.log(e)
-			return res.json({ err: e })
+			return res.json({ message: e })
 		})
 }
 
@@ -114,6 +114,6 @@ export const update = (req: any, res: any) => {
 		})
 		.catch((e) => {
 			console.log(e)
-			return res.json({ err: e })
+			return res.json({ message: e })
 		})
 }
