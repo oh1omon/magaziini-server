@@ -43,7 +43,6 @@ export const itemDocToObject = (doc: any) => ({
 	sex: doc.sex,
 	image: doc.image,
 	sizes: doc.sizes,
-	inStock: doc.inStock,
 	price: doc.price,
 	color: doc.color,
 })

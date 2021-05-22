@@ -38,7 +38,6 @@ interface IItem {
 	sex: string
 	image: string
 	sizes: string[]
-	inStock: number
 	price: number
 	color: string
 }
@@ -51,7 +50,6 @@ interface ICreateItem {
 	sex: string
 	image: string
 	sizes: string[]
-	inStock: number
 	price: number
 	color: string
 }

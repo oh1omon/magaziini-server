@@ -25,10 +25,6 @@ export const register = (req: any, res: any) => {
 	signUpUser(req.body)
 		.then((r: string | IUser) => {
 			if (typeof r !== 'string') {
-				// return res.json({
-				// 	message: 'User created!',
-				// 	user: userDocToObject(r),
-				// })
 				req.login(r, function (err: Error) {
 					if (err) {
 						return res.json({ message: 'internal error' })
@@ -42,7 +38,10 @@ export const register = (req: any, res: any) => {
 				res.json({ message: r })
 			}
 		})
-		.catch((e: Error) => console.log(e))
+		.catch((e: Error) => {
+			console.log(e)
+			return res.json({ err: e })
+		})
 }
 
 /**
@@ -113,5 +112,8 @@ export const update = (req: any, res: any) => {
 		.then((r: any) => {
 			return res.json({ message: 'update successful', user: userDocToObject(r) })
 		})
-		.catch((e) => console.log(e))
+		.catch((e) => {
+			console.log(e)
+			return res.json({ err: e })
+		})
 }

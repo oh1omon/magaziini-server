@@ -157,7 +157,6 @@ export const createItem = async (itemObj: ICreateItem) => {
 				sex: itemObj.sex || '',
 				image: itemObj.image || '',
 				sizes: itemObj.sizes,
-				inStock: itemObj.inStock || 1,
 				price: itemObj.price,
 				color: itemObj.color || '',
 			},
@@ -172,7 +171,6 @@ export const createItem = async (itemObj: ICreateItem) => {
 					sex: doc.sex,
 					image: doc.image,
 					sizes: doc.sizes,
-					inStock: doc.inStock,
 					price: doc.price,
 					color: doc.color,
 				})
@@ -212,12 +210,8 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
 				sex: doc.sex,
 				image: doc.image,
 				sizes: doc.sizes,
-				inStock: doc.inStock,
 				price: doc.price,
 				color: doc.color,
-				availiableColors: doc.availiableColors,
-				season: doc.season,
-				structure: doc.structure,
 			})
 		})
 	})

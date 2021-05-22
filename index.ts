@@ -10,7 +10,6 @@ dotenv.config()
 
 //Extracting PORT & HOST variables from .env file
 const PORT: number = parseInt(process.env.PORT as string, 10)
-const HOST: string = process.env.HOST!
 
 const app = express()
 app.use(express.json())
@@ -42,16 +41,10 @@ app.use(passport.session())
 //Adding information about authentication routes to express
 app.use('/api', mainRoutes)
 
+//Responding to the all others routes with this message
 app.get('*', (req, res) => {
-	// res.sendFile(path.join(__dirname, '/index.html'))
 	res.send('This is an api server only')
 })
-
-// // Only for testing
-// app.use(express.static(path.join(__dirname, 'build')))
-// app.get('*', (req, res) => {
-// 	res.sendFile(path.join(__dirname, 'index.html'))
-// })
 
 //Starting server
 app.listen(PORT, () => {

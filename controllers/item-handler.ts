@@ -24,8 +24,7 @@ export const add = (req: any, res: any) => {
 					return res.json({ message: 'Item has been added successfully', item: itemDocToObject(r) })
 				})
 				.catch((e: Error) => {
-					console.log(e)
-					res.json({ err: 'Internal error' })
+					res.json({ err: e.message })
 				})
 		: res.json({ err: 'you have no rights' })
 }
@@ -38,8 +37,7 @@ export const update = (req: any, res: any) => {
 					return res.json({ message: 'Item has been updated successfully', item: itemDocToObject(r) })
 				})
 				.catch((e: Error) => {
-					console.log(e)
-					res.json({ err: 'Internal error' })
+					res.json({ err: e.message })
 				})
 		: res.json({ message: 'you have to be an admin to update items' })
 }
