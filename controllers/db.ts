@@ -42,19 +42,6 @@ export const connectToMongo = () => {
 	return db
 }
 
-// /**
-//  * @param filter intakes the string by which field of document to do searches
-//  * @param value intakes the string of value to compare with the documents
-//  * @returns  filterObj */
-// export const createFilterObj = (filter: string, value: any) => {
-// 	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
-// 		return null
-// 	}
-// 	let filterObj: IFilterObj = {}
-// 	filterObj[filter] = value
-// 	return filterObj
-// }
-
 /**
  * @param filter intakes the string by which field of document to do searches
  * @param value intakes the string of value to compare with the documents
@@ -90,9 +77,9 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				favorites: [],
 				orders: [],
 				type: 'default',
-				street: '',
-				city: '',
-				country: '',
+				street: userObj.street,
+				city: userObj.city,
+				country: userObj.country,
 			},
 			(err: Error, doc: UserDocument) => {
 				if (err) {

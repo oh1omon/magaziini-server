@@ -28,7 +28,11 @@ interface ISignUpUser {
 	email: string
 	password: string
 	name: string
+	street: string
+	city: string
+	country: string
 }
+//TODO:
 
 //Interfaces for Item Schema and Model
 interface IItem {

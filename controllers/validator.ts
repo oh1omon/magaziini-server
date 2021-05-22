@@ -97,8 +97,6 @@ class Validator {
 		if (typeof itemObj.sex === 'string') resObj.sex = itemObj.sex
 		if (typeof itemObj.image === 'string') resObj.image = itemObj.image
 		if (typeof itemObj.color === 'string') resObj.color = itemObj.color
-		if (typeof itemObj.season === 'string') resObj.season = itemObj.season
-		if (typeof itemObj.inStock === 'number') resObj.inStock = itemObj.inStock
 		if (itemObj.price) resObj.price = itemObj.price
 		if (itemObj.sizes) resObj.sizes = itemObj.sizes
 
