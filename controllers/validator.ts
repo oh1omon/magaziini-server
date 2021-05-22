@@ -12,13 +12,6 @@ class Validator {
 	}
 
 	/**
-	 * @param username string
-	 * @returns True if username is not falsy*/
-	name(username: string) {
-		return !!username
-	}
-
-	/**
 	 * @param password password string
 	 * @returns True if password's length more then 8*/
 	password(password: string) {
@@ -45,7 +38,14 @@ class Validator {
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: any) {
-		return !!(this.name(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
+		return !!(
+			this.checkString(signUpObj.name) &&
+			this.email(signUpObj.email) &&
+			this.password(signUpObj.password) &&
+			this.checkString(signUpObj.street) &&
+			this.checkString(signUpObj.city) &&
+			this.checkString(signUpObj.country)
+		)
 	}
 
 	/**
@@ -55,6 +55,7 @@ class Validator {
 		return !!(this.email(signInObj.email) && this.password(signInObj.password))
 	}
 
+	//TODO:create doc comment
 	createItem(item: any) {
 		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkString(item.price)
 	}

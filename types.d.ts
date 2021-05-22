@@ -32,7 +32,6 @@ interface ISignUpUser {
 	city: string
 	country: string
 }
-//TODO:
 
 //Interfaces for Item Schema and Model
 interface IItem {
