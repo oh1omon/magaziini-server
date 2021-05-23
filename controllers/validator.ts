@@ -38,14 +38,7 @@ class Validator {
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: any) {
-		return !!(
-			this.checkString(signUpObj.name) &&
-			this.email(signUpObj.email) &&
-			this.password(signUpObj.password) &&
-			this.checkString(signUpObj.street) &&
-			this.checkString(signUpObj.city) &&
-			this.checkString(signUpObj.country)
-		)
+		return !!(this.checkString(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
 	}
 
 	/**
@@ -67,11 +60,12 @@ class Validator {
 	 */
 	updateUser(updateObj: any) {
 		let resObj: any = {}
-		if (updateObj.password && typeof updateObj.password === 'string') resObj.password = updateObj.password
-		if (updateObj.name && typeof updateObj.name === 'string') resObj.name = updateObj.name
-		if (updateObj.street && typeof updateObj.street === 'string') resObj.street = updateObj.street
-		if (updateObj.city && typeof updateObj.city === 'string') resObj.city = updateObj.city
-		if (updateObj.country && typeof updateObj.country === 'string') resObj.country = updateObj.country
+		if (updateObj.password && typeof updateObj.password === 'string' && updateObj.password.length >= 8)
+			resObj.password = updateObj.password
+		if (typeof updateObj.name === 'string') resObj.name = updateObj.name
+		if (typeof updateObj.street === 'string') resObj.street = updateObj.street
+		if (typeof updateObj.city === 'string') resObj.city = updateObj.city
+		if (typeof updateObj.country === 'string') resObj.country = updateObj.country
 		if (updateObj.favorites) resObj.favorites = updateObj.favorites
 		if (updateObj.orders) resObj.orders = updateObj.orders
 		return resObj

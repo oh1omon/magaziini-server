@@ -77,9 +77,9 @@ export const signUpUser = async (userObj: ISignUpUser) => {
 				favorites: [],
 				orders: [],
 				type: 'default',
-				street: userObj.street,
-				city: userObj.city,
-				country: userObj.country,
+				street: userObj.street || '',
+				city: userObj.city || '',
+				country: userObj.country || '',
 			},
 			(err: Error, doc: UserDocument) => {
 				if (err) {
