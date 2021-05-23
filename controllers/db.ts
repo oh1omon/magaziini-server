@@ -215,7 +215,7 @@ export const createOrder = async (orderObj: any) => {
 			{
 				_id: new mongoose.Types.ObjectId(),
 				submitter: orderObj.submitter,
-				submitterName: orderObj.submitterName,
+				submitterName: orderObj.name,
 				street: orderObj.street,
 				city: orderObj.city,
 				country: orderObj.country,

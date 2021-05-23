@@ -6,7 +6,7 @@ export const create = (req: any, res: any) => {
 	if (!Validator.createOrder(req.body)) return res.json({ message: 'I bet you have forgot to mention size :D' })
 	const orderObj = req.body
 	orderObj.submitter = req?.user?.id || ''
-	orderObj.submitterName || (orderObj.submitterName = req?.user?.name)
+	orderObj.name || (orderObj.name = req?.user?.name)
 	orderObj.street || (orderObj.street = req?.user?.street)
 	orderObj.city || (orderObj.city = req?.user?.city)
 	orderObj.country || (orderObj.country = req?.user?.country)
