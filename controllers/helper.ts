@@ -1,12 +1,17 @@
-import { IFilterObj } from '../types'
+import { ObjectId } from 'mongoose'
+import { IFilterObj, IItem, ItemDocument, IUser, UserDocument } from '../types'
 import Validator from './validator'
 
 /**
  * @param filter intakes the string by which field of document to do searches
  * @param value intakes the string of value to compare with the documents
  * @returns  filterObj */
-export const createFilterObj = (filter: string, value: any, baseObject: any = null) => {
-	if (!Validator.checkString(filter) || !Validator.checkString(value)) {
+export const createFilterObj = (
+	filter: string,
+	value: string | ObjectId,
+	baseObject: null | Record<string, unknown> = null
+): Record<string, unknown> => {
+	if (!Validator.checkString(filter) || !Validator.checkString(value as string)) {
 		return baseObject !== null ? baseObject : null
 	}
 	const filterObj: IFilterObj = {}
@@ -19,7 +24,7 @@ export const createFilterObj = (filter: string, value: any, baseObject: any = nu
  * @param {Document} doc - user document
  * @returns object with deleted password and _v fields, also deletes Document properties
  */
-export const userDocToObject = (doc: any) => ({
+export const userDocToObject = (doc: UserDocument): IUser => ({
 	_id: doc._id,
 	email: doc.email,
 	orders: doc.orders,
@@ -36,7 +41,7 @@ export const userDocToObject = (doc: any) => ({
  * @param {Document} doc - user document
  * @returns object with deleted password and _v fields, also deletes Document properties
  */
-export const itemDocToObject = (doc: any) => ({
+export const itemDocToObject = (doc: ItemDocument): IItem => ({
 	_id: doc._id,
 	name: doc.name,
 	description: doc.description,
