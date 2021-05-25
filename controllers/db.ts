@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 import { Item } from '../db-models/item/item-model'
 import { Order } from '../db-models/order/order-model'
 import { Sub } from '../db-models/subs/subs-model'
@@ -32,6 +32,7 @@ export const connectToMongo = (): mongoose.Connection => {
 	}
 
 	//Connecting to Mongo
+
 	mongoose
 		.connect(process.env.DB_CONNECTION_LINK, {
 			useNewUrlParser: true,
@@ -60,7 +61,7 @@ export const connectToMongo = (): mongoose.Connection => {
  * @param value intakes the string of value to compare with the documents
  * Searching only through the Users collection
  * @returns either found document, or null*/
-export const findOneUser = async (filter: string, value: string | mongoose.Types.ObjectId): Promise<UserDocument> => {
+export const findOneUser = async (filter: string, value: string | ObjectId): Promise<UserDocument> => {
 	const filterObj = createFilterObj(filter, value)
 	return User.findOne(filterObj, (err: Error, data: UserDocument) => {
 		if (err) {
@@ -119,7 +120,7 @@ export const signUpUser = async (userObj: ISignUpUser): Promise<IUser | string> 
  * @param updatesObj
  * @returns updated version of user
  */
-export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: IUserUpdates): Promise<IUser | string> => {
+export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Promise<IUser | string> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.password) {
@@ -145,7 +146,8 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: IU
 
 /**
  * @param {ICreateItem} itemObj
- * @returns {} Item object – if document has been added
+ * @returns {IItem} Item object – if document has been added
+ * @returns {void} - if error has occurred
  */
 export const createItem = async (itemObj: ICreateItem): Promise<IItem> => {
 	return new Promise(async (resolve, reject) => {
@@ -180,9 +182,9 @@ export const createItem = async (itemObj: ICreateItem): Promise<IItem> => {
 }
 
 /**
- * @param itemId
+ * @param {ObjectId} itemId
  */
-export const deleteItem = async (itemId: mongoose.Types.ObjectId): Promise<boolean> => {
+export const deleteItem = async (itemId: ObjectId): Promise<boolean> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
 		await Item.findOneAndDelete(filterObj, {}, (err) => {
@@ -197,7 +199,7 @@ export const deleteItem = async (itemId: mongoose.Types.ObjectId): Promise<boole
  * @param updatesObj
  * @returns updated version of item
  */
-export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: IItemUpdate): Promise<IItem> => {
+export const updateItem = async (itemId: ObjectId, updatesObj: IItemUpdate): Promise<IItem> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
 		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc: ItemDocument) => {
@@ -246,7 +248,7 @@ export const createOrder = async (orderObj: IOrderCreate): Promise<IOrderDocumen
 }
 
 /**
- *
+ * Function finds order documents according to the data passed to the function.
  * @param id
  * @returns {IOrderDocument[]} found documents
  */

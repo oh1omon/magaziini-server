@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { Request as IRequest } from 'express'
-import { Document, Types } from 'mongoose'
+import { Document, ObjectId } from 'mongoose'
 
 //Request
 interface Request extends IRequest {
@@ -10,12 +10,12 @@ interface Request extends IRequest {
 
 //Interfaces for User Schema and Model
 interface IUser {
-	_id: Types.ObjectId
+	_id: ObjectId
 	email: string
 	password?: string
 	name: string
-	favorites: Types.ObjectId[]
-	orders: Types.ObjectId[]
+	favorites: ObjectId[]
+	orders: ObjectId[]
 	type: string
 	street: string
 	city: string
@@ -32,8 +32,8 @@ interface IFilterObj {
 interface IUserUpdates {
 	password?: string
 	name?: string
-	favorites?: Types.ObjectId[]
-	orders?: Types.ObjectId[]
+	favorites?: ObjectId[]
+	orders?: ObjectId[]
 	street?: string
 	city?: string
 	country?: string
@@ -51,7 +51,7 @@ interface ISignUpUser {
 
 //Interfaces for Item Schema and Model
 interface IItem {
-	_id: Types.ObjectId
+	_id: ObjectId
 	name: string
 	description: string
 	sex: string
@@ -86,8 +86,8 @@ interface IItemUpdate {
 //Interfaces for Order Schema and Model
 
 interface IOrder {
-	_id: Types.ObjectId
-	itemId: Types.ObjectId
+	_id: ObjectId
+	itemId: ObjectId
 	submitter: string
 	submitterName: string
 	street: string
@@ -99,7 +99,7 @@ interface IOrder {
 }
 
 interface IOrderCreate {
-	itemId?: Types.ObjectId
+	itemId?: ObjectId
 	submitter?: string
 	name?: string
 	street?: string
@@ -115,7 +115,7 @@ type IOrderDocument = IOrder & Document
 //Interfaces for Subs Schema and model
 
 interface ISub {
-	_id: Types.ObjectId
+	_id: ObjectId
 	email: string
 }
 
