@@ -3,6 +3,13 @@ import { Request } from '../types'
 import { createOrder, retrieveOrders } from './db'
 import Validator from './validator'
 
+/**
+ * Function performs validation of request, and then dispatches order creation function.
+ * After that it validates response from order creation and sends response to the client according to it
+ * @param req Request
+ * @param res Response
+ * @returns {void}
+ */
 export const create = (req: Request, res: Response): void => {
 	if (!req.body) {
 		res.json({ err: 'No data submitted' })
@@ -40,6 +47,14 @@ export const create = (req: Request, res: Response): void => {
 		.catch((e) => console.log(e))
 }
 
+/**
+ * Function dispatches order finding function, based on type of user account.
+ * If user is admin, it send all orders.
+ * If user is not admin, it send only orders, created byt this user.
+ * @param req Request
+ * @param res Response
+ * @returns {void}
+ */
 export const retrieve = (req: Request, res: Response): void => {
 	if (!req.user) {
 		res.json({ message: 'You have to be logged in to see your orders!' })

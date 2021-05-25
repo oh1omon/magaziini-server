@@ -90,7 +90,7 @@ export const remove = (req: Request, res: Response): void => {
 
 /**
  * Function dispatches item finding function, based on provided or not id of this item.
- * If there was that id in req.params, then if tries to find only one item.
+ * If there was that id in req.params, then it tries to find only one item.
  * If no id provided, it sends the whole list of items
  * @param req Request
  * @param res Response
