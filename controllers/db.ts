@@ -4,15 +4,28 @@ import { Item } from '../db-models/item/item-model'
 import { Order } from '../db-models/order/order-model'
 import { Sub } from '../db-models/subs/subs-model'
 import { User } from '../db-models/user/user-model'
-import { ICreateItem, IOrderDocument, ISignUpUser, ISubDocument, ItemDocument, UserDocument } from '../types'
+import {
+	ICreateItem,
+	IItem,
+	IItemUpdate,
+	IOrderCreate,
+	IOrderDocument,
+	ISignUpUser,
+	ISubDocument,
+	ItemDocument,
+	IUser,
+	IUserUpdates,
+	UserDocument,
+} from '../types'
 import { createFilterObj } from './helper'
 
-let db: any
+let db: mongoose.Connection
 
 /**
  * Connects to the Mongo DataBase and adds listeners for success connection and errors
- * @returns connection instance**/
-export const connectToMongo = () => {
+ * @returns {mongoose.Connection} connection instance
+ * */
+export const connectToMongo = (): mongoose.Connection => {
 	//If the db variable already set, then it will not produce any new connections
 	if (db) {
 		return
@@ -47,7 +60,7 @@ export const connectToMongo = () => {
  * @param value intakes the string of value to compare with the documents
  * Searching only through the Users collection
  * @returns either found document, or null*/
-export const findOneUser = async (filter: string, value: any) => {
+export const findOneUser = async (filter: string, value: string | mongoose.Types.ObjectId): Promise<UserDocument> => {
 	const filterObj = createFilterObj(filter, value)
 	return User.findOne(filterObj, (err: Error, data: UserDocument) => {
 		if (err) {
@@ -63,7 +76,7 @@ export const findOneUser = async (filter: string, value: any) => {
  * @returns user created -> returns user document with deleted password
  * @returns already user with this email -> returns string with message
  */
-export const signUpUser = async (userObj: ISignUpUser) => {
+export const signUpUser = async (userObj: ISignUpUser): Promise<IUser | string> => {
 	return new Promise(async (resolve, reject) => {
 		if (await findOneUser('email', userObj.email)) {
 			return resolve(`There are already an account assigned to ${userObj.email}`)
@@ -106,7 +119,7 @@ export const signUpUser = async (userObj: ISignUpUser) => {
  * @param updatesObj
  * @returns updated version of user
  */
-export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: any) => {
+export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: IUserUpdates): Promise<IUser | string> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.password) {
@@ -132,9 +145,9 @@ export const updateUser = async (userId: mongoose.Types.ObjectId, updatesObj: an
 
 /**
  * @param {ICreateItem} itemObj
- * @returns {} Item document – if document has been added
+ * @returns {} Item object – if document has been added
  */
-export const createItem = async (itemObj: ICreateItem) => {
+export const createItem = async (itemObj: ICreateItem): Promise<IItem> => {
 	return new Promise(async (resolve, reject) => {
 		Item.create(
 			{
@@ -169,10 +182,10 @@ export const createItem = async (itemObj: ICreateItem) => {
 /**
  * @param itemId
  */
-export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
+export const deleteItem = async (itemId: mongoose.Types.ObjectId): Promise<boolean> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
-		await Item.findOneAndDelete(filterObj, {}, (err, res) => {
+		await Item.findOneAndDelete(filterObj, {}, (err) => {
 			if (err) return reject(err.message)
 			return resolve(true)
 		})
@@ -184,10 +197,10 @@ export const deleteItem = async (itemId: mongoose.Types.ObjectId) => {
  * @param updatesObj
  * @returns updated version of item
  */
-export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: any) => {
+export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: IItemUpdate): Promise<IItem> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', itemId)
-		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc: any) => {
+		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc: ItemDocument) => {
 			if (err) return reject(err.message)
 
 			return resolve({
@@ -209,7 +222,7 @@ export const updateItem = async (itemId: mongoose.Types.ObjectId, updatesObj: an
  * @param orderObj
  * @returns {IOrderDocument} created document
  */
-export const createOrder = async (orderObj: any) => {
+export const createOrder = async (orderObj: IOrderCreate): Promise<IOrderDocument> => {
 	return new Promise(async (resolve, reject) => {
 		await Order.create(
 			{
@@ -237,13 +250,13 @@ export const createOrder = async (orderObj: any) => {
  * @param id
  * @returns {IOrderDocument[]} found documents
  */
-export const retrieveOrders = async (id = '') => {
+export const retrieveOrders = async (id = ''): Promise<IOrderDocument[]> => {
 	return new Promise(async (resolve, reject) => {
 		let baseObj = {}
 		if (id) {
 			baseObj = createFilterObj('submitter', id, baseObj)
 		}
-		await Order.find(baseObj, (e: Error, r: IOrderDocument) => {
+		await Order.find(baseObj, (e: Error, r: IOrderDocument[]) => {
 			if (e) return reject(e)
 			return resolve(r)
 		})
@@ -253,9 +266,9 @@ export const retrieveOrders = async (id = '') => {
 /**
  *
  * @param orderObj
- * @returns {IOrderDocument} created document
+ * @returns {ISubDocument} created document
  */
-export const subAdd = async (email: string) => {
+export const subAdd = async (email: string): Promise<ISubDocument> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('email', email)
 		const found = await Sub.findOne(filterObj)

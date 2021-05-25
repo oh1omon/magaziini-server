@@ -29,6 +29,16 @@ interface IFilterObj {
 	[filter: string]: any
 }
 
+interface IUserUpdates {
+	password?: string
+	name?: string
+	favorites?: Types.ObjectId[]
+	orders?: Types.ObjectId[]
+	street?: string
+	city?: string
+	country?: string
+}
+
 //Interface for createNewUSer function
 interface ISignUpUser {
 	email: string
@@ -63,6 +73,16 @@ interface ICreateItem {
 	color: string
 }
 
+interface IItemUpdate {
+	name?: string
+	description?: string
+	sex?: string
+	image?: string
+	sizes?: string[]
+	price?: number
+	color?: string
+}
+
 //Interfaces for Order Schema and Model
 
 interface IOrder {
@@ -76,6 +96,18 @@ interface IOrder {
 	size: string
 	color: string
 	status: string
+}
+
+interface IOrderCreate {
+	itemId?: Types.ObjectId
+	submitter?: string
+	name?: string
+	street?: string
+	city?: string
+	country?: string
+	size?: string
+	color?: string
+	status?: string
 }
 
 type IOrderDocument = IOrder & Document
