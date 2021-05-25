@@ -110,7 +110,7 @@ export const signUpUser = async (userObj: ISignUpUser): Promise<IUser | string> 
  * @param updatesObj
  * @returns updated version of user
  */
-export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Promise<IUser | string> => {
+export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Promise<IUser> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.password) {

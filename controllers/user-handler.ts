@@ -1,5 +1,6 @@
+import { Response } from 'express'
 import passport from 'passport'
-import { IUser } from '../types'
+import { IUser, Request } from '../types'
 import { findOneUser, signUpUser, updateUser } from './db'
 import { userDocToObject } from './helper'
 import { initializePassport } from './passport-initialize'
@@ -11,28 +12,32 @@ initializePassport(passport, findOneUser)
  *
  * @param { Request } req
  * @param { Response } res
- * @returns Response with JSON object containing user object <- if everything went successfull
+ * @returns Response with JSON object containing user object <- if everything went successfully
  * @returns Response with JSON object containing message <- if wrong data submitted
- * @returns Response with JSON object containing error <- if internal error has occured
+ * @returns Response with JSON object containing error <- if internal error has occurred
  */
-export const register = (req: any, res: any) => {
+export const register = (req: Request, res: Response): void => {
 	if (!req.body) {
 		res.json({ err: 'No data provided' })
+		return
 	}
 	if (!Validator.singUp(req.body)) {
-		return res.json({ message: 'Wrong data submitted' })
+		res.json({ message: 'Wrong data submitted' })
+		return
 	}
 	signUpUser(req.body)
 		.then((r: string | IUser) => {
 			if (typeof r !== 'string') {
 				req.login(r, function (err: Error) {
 					if (err) {
-						return res.json({ message: 'internal error' })
+						res.json({ message: 'internal error' })
+						return
 					}
-					return res.json({
+					res.json({
 						message: 'authenticated',
 						user: r,
 					})
+					return
 				})
 			} else {
 				res.json({ message: r })
@@ -40,7 +45,8 @@ export const register = (req: any, res: any) => {
 		})
 		.catch((e: Error) => {
 			console.log(e)
-			return res.json({ message: e })
+			res.json({ message: e })
+			return
 		})
 }
 
@@ -49,25 +55,30 @@ export const register = (req: any, res: any) => {
  * @param { Response } res
  * @returns Response with JSON object containing user object
  */
-export const login = (req: any, res: any) => {
+export const login = (req: Request, res: Response): void => {
 	if (!Validator.signIn(req.body)) {
-		return res.json({ message: 'Wrong data submitted' })
+		res.json({ message: 'Wrong data submitted' })
+		return
 	}
 	passport.authenticate('local', function (err: any, user: any, info: any) {
 		if (err) {
-			return res.json({ message: err.message })
+			res.json({ message: err.message })
+			return
 		}
 		if (!user) {
-			return res.json({ message: 'Wrong email or password!' })
+			res.json({ message: 'Wrong email or password!' })
+			return
 		}
 		req.login(user, function (err: Error) {
 			if (err) {
-				return res.json({ message: 'internal error' })
+				res.json({ message: 'internal error' })
+				return
 			}
-			return res.json({
+			res.json({
 				message: 'authenticated',
 				user: userDocToObject(user),
 			})
+			return
 		})
 	})(req, res)
 }
@@ -77,11 +88,12 @@ export const login = (req: any, res: any) => {
  * @param { Response } res
  * @returns Response with JSON object containing user object
  */
-export const retrieve = (req: any, res: any) => {
+export const retrieve = (req: Request, res: Response): void => {
 	if (req.user) {
-		return res.json({ user: userDocToObject(req.user) })
+		res.json({ user: req.user })
+		return
 	}
-	return res.json({ user: null })
+	res.json({ user: null })
 }
 
 /**
@@ -89,7 +101,7 @@ export const retrieve = (req: any, res: any) => {
  * @param { Response } res
  * @returns Perfoms log out process and then deletes client side session cookie
  */
-export const signout = (req: any, res: any) => {
+export const signout = (req: Request, res: Response): void => {
 	req.logout()
 	req.session.destroy(function (err: Error) {
 		if (!err) {
@@ -104,16 +116,30 @@ export const signout = (req: any, res: any) => {
 	})
 }
 
-export const update = (req: any, res: any) => {
-	if (!req.body) return res.json({ message: 'No data submitted!' })
-	if (!req.user) return res.json({ message: 'You have to be logged in to change your profile!' })
-	let updateObj = Validator.updateUser(req.body)
+/**
+ * Function performs validation of input, then dispatches user update function.
+ * According to the response, we sending different answers to the user.
+ * @param req Request
+ * @param res Response
+ * @returns {void}
+ */
+export const update = (req: Request, res: Response): void => {
+	if (!req.body) {
+		res.json({ message: 'No data submitted!' })
+		return
+	}
+	if (!req.user) {
+		res.json({ message: 'You have to be logged in to change your profile!' })
+		return
+	}
+	const updateObj = Validator.updateUser(req.body)
 	updateUser(req.user._id, updateObj)
-		.then((r: any) => {
-			return res.json({ message: 'update successful', user: userDocToObject(r) })
+		.then((r: IUser) => {
+			res.json({ message: 'update successful', user: r })
+			return
 		})
 		.catch((e) => {
 			console.log(e)
-			return res.json({ message: e })
+			res.json({ message: e })
 		})
 }
