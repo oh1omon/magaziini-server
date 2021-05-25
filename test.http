@@ -1,9 +1,8 @@
-# POST http://localhost:8080/api/user/login
 POST https://mag-api.herokuapp.com/api/user/login
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@testd4.com", 
+	"email": "artem.szagarov@testd4.com", 
 	"password": "12345678"
 }
 
@@ -18,7 +17,7 @@ POST https://mag-api.herokuapp.com/api/user/register
 Content-Type: application/json
 
 {
-	"email":"artem.szagarov@testsd4.com", 
+	"email": "artem.szagarov@testsd4.com", 
 	"password": "12345678",
 	"name": "osuzhdayu"
 }
@@ -29,7 +28,7 @@ Content-Type: application/json
 
 {
 	"password": "12345678",
-    "city":"normal1",
+    "city": "normal1",
 	"name": "osuzhdayu2"
 }
 
@@ -47,12 +46,8 @@ Content-Type: application/json
     "description": "string",
     "image": "string",
     "sizes": ["35-3u"],
-    "inStock": 4.0,
     "price": 0,
     "color": "string",
-    "availiableColors": ["string[]"],
-    "season": "string",
-    "structure": {"check":"1"}
 }
 
 ###
@@ -66,12 +61,8 @@ Content-Type: application/json
     "description": "string",
     "image": "string",
     "sizes": ["35-3u"],
-    "inStock": 4.2,
     "price": 0,
     "color": "string",
-    "availiableColors": ["string[]"],
-    "season": "string",
-    "structure": {"check":"1"}
 }
 
 ###
