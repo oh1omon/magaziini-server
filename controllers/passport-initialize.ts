@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import { ObjectId } from 'mongoose'
 import { PassportStatic } from 'passport'
 import LocalStrategy from 'passport-local'
-import { IUser, UserDocument } from '../types'
+import { IFindOneUser, IUser } from '../types'
 // const LocalStrategy = require('passport-local').Strategy
 
 /**
@@ -12,10 +12,7 @@ import { IUser, UserDocument } from '../types'
  * Intakes passport instance,
  * function to find user by email to let authenticating able,
  * function to find user by id to deserialize the user*/
-export const initializePassport = (
-	passport: PassportStatic,
-	findOneUser: (filter: string, value: string | ObjectId) => Promise<UserDocument>
-): void => {
+export const initializePassport = (passport: PassportStatic, findOneUser: IFindOneUser): void => {
 	const authenticateUser = async (email: string, password: string, done: any): Promise<any> => {
 		const user = await findOneUser('email', email)
 		if (!user) {

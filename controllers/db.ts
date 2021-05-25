@@ -6,6 +6,7 @@ import { Sub } from '../db-models/subs/subs-model'
 import { User } from '../db-models/user/user-model'
 import {
 	ICreateItem,
+	IFindOneUser,
 	IItem,
 	IItemUpdate,
 	IOrderCreate,
@@ -61,7 +62,7 @@ export const connectToMongo = (): mongoose.Connection => {
  * @param value intakes the string of value to compare with the documents
  * Searching only through the Users collection
  * @returns either found document, or null*/
-export const findOneUser = async (filter: string, value: string | ObjectId): Promise<UserDocument> => {
+export const findOneUser: IFindOneUser = async (filter, value) => {
 	const filterObj = createFilterObj(filter, value)
 	return User.findOne(filterObj, (err: Error, data: UserDocument) => {
 		if (err) {
@@ -110,7 +111,7 @@ export const signUpUser = async (userObj: ISignUpUser): Promise<IUser | string> 
  * @param updatesObj
  * @returns updated version of user
  */
-export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Promise<IUser> => {
+export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Promise<IUser | string> => {
 	return new Promise(async (resolve, reject) => {
 		const filterObj = createFilterObj('_id', userId)
 		if (updatesObj.password) {

@@ -27,7 +27,7 @@ type UserDocument = IUser & Document
 
 //Interface for finOneUser function
 interface IFilterObj {
-	[filter: string]: any
+	[filter: string]: string | ObjectId
 }
 
 interface IUserUpdates {
@@ -121,3 +121,7 @@ interface ISub {
 }
 
 type ISubDocument = ISub & Document
+
+//Db.ts types
+
+type IFindOneUser = (filter: string, value: string | ObjectId) => Promise<UserDocument>
