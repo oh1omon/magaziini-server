@@ -11,6 +11,7 @@ interface Request extends IRequest {
 //Interfaces for User Schema and Model
 interface IUser {
 	_id: ObjectId
+	id?: string
 	email: string
 	password?: string
 	name: string

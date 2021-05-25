@@ -31,7 +31,7 @@ export const register = (req: any, res: any) => {
 					}
 					return res.json({
 						message: 'authenticated',
-						user: userDocToObject(r),
+						user: r,
 					})
 				})
 			} else {

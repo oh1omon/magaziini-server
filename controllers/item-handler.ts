@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { Item } from '../db-models/item/item-model'
 import { IItem, Request } from '../types'
 import { createItem, deleteItem, updateItem } from './db'
-import { createFilterObj, itemDocToObject } from './helper'
+import { createFilterObj } from './helper'
 import Validator from './validator'
 
 /**
@@ -24,7 +24,7 @@ export const add = (req: Request, res: Response): void => {
 	req.user.type === 'admin'
 		? createItem(req.body)
 				.then((r: IItem) => {
-					res.json({ message: 'Item has been added successfully', item: itemDocToObject(r) })
+					res.json({ message: 'Item has been added successfully', item: r })
 					return
 				})
 				.catch((e: Error) => {
@@ -48,7 +48,7 @@ export const update = (req: Request, res: Response): void => {
 	req.user && req.user.type === 'admin'
 		? updateItem(req.body._id, Validator.updateItem(req.body))
 				.then((r: IItem) => {
-					res.json({ message: 'Item has been updated successfully', item: itemDocToObject(r) })
+					res.json({ message: 'Item has been updated successfully', item: r })
 					return
 				})
 				.catch((e: Error) => {

@@ -1,9 +1,17 @@
+import { Response } from 'express'
+import { Request } from '../types'
 import { createOrder, retrieveOrders } from './db'
 import Validator from './validator'
 
-export const create = (req: any, res: any) => {
-	if (!req.body) return res.json({ err: 'No data submitted' })
-	if (!Validator.createOrder(req.body)) return res.json({ message: 'I bet you have forgot to mention size :D' })
+export const create = (req: Request, res: Response): void => {
+	if (!req.body) {
+		res.json({ err: 'No data submitted' })
+		return
+	}
+	if (!Validator.createOrder(req.body)) {
+		res.json({ message: 'I bet you have forgot to mention size :D' })
+		return
+	}
 	const orderObj = req.body
 	orderObj.submitter = req?.user?.id || ''
 	orderObj.name || (orderObj.name = req?.user?.name)
@@ -11,8 +19,8 @@ export const create = (req: any, res: any) => {
 	orderObj.city || (orderObj.city = req?.user?.city)
 	orderObj.country || (orderObj.country = req?.user?.country)
 	createOrder(orderObj)
-		.then((r: any) => {
-			return res.json({
+		.then((r) => {
+			res.json({
 				message: 'Order created!',
 				order: {
 					_id: r._id,
@@ -27,18 +35,20 @@ export const create = (req: any, res: any) => {
 					status: r.status,
 				},
 			})
+			return
 		})
 		.catch((e) => console.log(e))
 }
 
-export const retrieve = (req: any, res: any) => {
+export const retrieve = (req: Request, res: Response): void => {
 	if (!req.user) {
-		return res.json({ message: 'You have to be logged in to see your orders!' })
+		res.json({ message: 'You have to be logged in to see your orders!' })
+		return
 	}
 
 	req.user.type === 'admin'
 		? retrieveOrders().then((r) => {
-				return res.json({ message: 'success', orders: r })
+				res.json({ message: 'success', orders: r })
 		  })
 		: retrieveOrders(req.user.id).then((r) => res.json({ message: 'success', orders: r }))
 }

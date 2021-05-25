@@ -17,7 +17,7 @@ import {
 	IUserUpdates,
 	UserDocument,
 } from '../types'
-import { createFilterObj } from './helper'
+import { createFilterObj, itemDocToObject, userDocToObject } from './helper'
 
 let db: mongoose.Connection
 
@@ -99,17 +99,7 @@ export const signUpUser = async (userObj: ISignUpUser): Promise<IUser | string> 
 				if (err) {
 					return reject(err.message)
 				}
-				return resolve({
-					_id: doc._id,
-					email: doc.email,
-					name: doc.name,
-					orders: doc.orders,
-					favorites: doc.favorites,
-					type: doc.type,
-					street: doc.street,
-					city: doc.city,
-					country: doc.country,
-				})
+				return resolve(userDocToObject(doc))
 			}
 		)
 	})
@@ -129,17 +119,7 @@ export const updateUser = async (userId: ObjectId, updatesObj: IUserUpdates): Pr
 		await User.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc) => {
 			if (err) return reject(err.message)
 
-			return resolve({
-				_id: doc._id,
-				email: doc.email,
-				name: doc.name,
-				orders: doc.orders,
-				favorites: doc.favorites,
-				type: doc.type,
-				street: doc.street,
-				city: doc.city,
-				country: doc.country,
-			})
+			return resolve(userDocToObject(doc))
 		})
 	})
 }
@@ -166,16 +146,7 @@ export const createItem = async (itemObj: ICreateItem): Promise<IItem> => {
 				if (err) {
 					return reject(err)
 				}
-				return resolve({
-					_id: doc._id,
-					name: doc.name,
-					description: doc.description,
-					sex: doc.sex,
-					image: doc.image,
-					sizes: doc.sizes,
-					price: doc.price,
-					color: doc.color,
-				})
+				return resolve(itemDocToObject(doc))
 			}
 		)
 	})
@@ -205,16 +176,7 @@ export const updateItem = async (itemId: ObjectId, updatesObj: IItemUpdate): Pro
 		await Item.findOneAndUpdate(filterObj, updatesObj, { new: true }, (err, doc: ItemDocument) => {
 			if (err) return reject(err.message)
 
-			return resolve({
-				_id: doc._id,
-				name: doc.name,
-				description: doc.description,
-				sex: doc.sex,
-				image: doc.image,
-				sizes: doc.sizes,
-				price: doc.price,
-				color: doc.color,
-			})
+			return resolve(itemDocToObject(doc))
 		})
 	})
 }
