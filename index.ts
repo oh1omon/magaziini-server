@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 
 //Initializing Mongo
-const db = connectToMongo()
+connectToMongo()
 
 //Initializing Express session
 app.use(

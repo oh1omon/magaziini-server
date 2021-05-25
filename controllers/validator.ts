@@ -5,24 +5,26 @@ class Validator {
 	/**
 	 * @param email string
 	 * @returns True if email has passed the validation and False if not*/
-	email(email: string) {
+	email(email: unknown) {
+		if (!this.checkString(email)) return false
 		return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
-			email
+			email as string
 		)
 	}
 
 	/**
 	 * @param password password string
 	 * @returns True if password's length more then 8*/
-	password(password: string) {
-		return password.length >= 8
+	password(password: unknown) {
+		if (!this.checkString(password)) return false
+		return (password as string).length >= 8
 	}
 
 	/**
 	 * @param string
 	 * @returns True if string is not falsy and
 	 * False if string is actually falsy*/
-	checkString(string: string) {
+	checkString(string: unknown) {
 		return !!string
 	}
 
@@ -37,20 +39,24 @@ class Validator {
 	/**
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
-	singUp(signUpObj: any) {
+	singUp(signUpObj: Record<string, unknown>) {
 		return !!(this.checkString(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
 	}
 
 	/**
 	 * @param signInObj object with data to sign in
 	 * @returns True if object has passed the validation and False if have not passed*/
-	signIn(signInObj: any) {
+	signIn(signInObj: Record<string, unknown>) {
 		return !!(this.email(signInObj.email) && this.password(signInObj.password))
 	}
 
-	//TODO:create doc comment
-	createItem(item: any) {
-		return !!this.checkString(item.name) && !!this.checkString(item.description) && !!this.checkString(item.price)
+	/**
+	 *
+	 * @param itemObj
+	 * @returns True if object has passed the validation and False if have not passed
+	 */
+	createItem(itemObj: Record<string, unknown>) {
+		return !!this.checkString(itemObj.name) && !!this.checkString(itemObj.description) && !!this.checkString(itemObj.price)
 	}
 
 	/**
@@ -58,10 +64,9 @@ class Validator {
 	 * @param updateObj
 	 * @returns checked object ready for next work
 	 */
-	updateUser(updateObj: any) {
-		let resObj: any = {}
-		if (updateObj.password && typeof updateObj.password === 'string' && updateObj.password.length >= 8)
-			resObj.password = updateObj.password
+	updateUser(updateObj: Record<string, unknown>) {
+		const resObj: Record<string, unknown> = {}
+		if (updateObj.password && this.password(updateObj.password)) resObj.password = updateObj.password
 		if (typeof updateObj.name === 'string') resObj.name = updateObj.name
 		if (typeof updateObj.street === 'string') resObj.street = updateObj.street
 		if (typeof updateObj.city === 'string') resObj.city = updateObj.city
@@ -76,7 +81,7 @@ class Validator {
 	 * @param orderObj
 	 * @returns True if object has passed the validation and False if have not passed
 	 */
-	createOrder(orderObj: any) {
+	createOrder(orderObj: Record<string, unknown>) {
 		return !!this.objectId(orderObj.itemId) && !!this.checkString(orderObj.size)
 	}
 
@@ -85,8 +90,8 @@ class Validator {
 	 * @param itemObj
 	 * @returns True if object has passed the validation and False if have not passed
 	 */
-	updateItem(itemObj: any) {
-		let resObj: any = {}
+	updateItem(itemObj: Record<string, unknown>) {
+		const resObj: Record<string, unknown> = {}
 		if (typeof itemObj.name === 'string') resObj.name = itemObj.name
 		if (typeof itemObj.description === 'string') resObj.description = itemObj.description
 		if (typeof itemObj.sex === 'string') resObj.sex = itemObj.sex
@@ -98,7 +103,12 @@ class Validator {
 		return resObj
 	}
 
-	objectId(id: string) {
+	/**
+	 * Function performs checking for the type of id and if yes, checks if it is convertible to mongoose's ObjectId
+	 * @param {unknown} id
+	 * @returns boolean
+	 */
+	objectId(id: unknown) {
 		if (typeof id === 'string') {
 			return !!id.match(/^[0-9a-fA-F]{24}$/)
 		} else {
