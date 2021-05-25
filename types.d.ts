@@ -1,15 +1,21 @@
 /// <reference types="node" />
 
-import mongoose, { Document } from 'mongoose'
+import { Request as IRequest } from 'express'
+import { Document, Types } from 'mongoose'
+
+//Request
+interface Request extends IRequest {
+	user?: IUser
+}
 
 //Interfaces for User Schema and Model
 interface IUser {
-	_id: mongoose.Types.ObjectId
+	_id: Types.ObjectId
 	email: string
 	password?: string
 	name: string
-	favorites: mongoose.Types.ObjectId[]
-	orders: mongoose.Types.ObjectId[]
+	favorites: Types.ObjectId[]
+	orders: Types.ObjectId[]
 	type: string
 	street: string
 	city: string
@@ -35,7 +41,7 @@ interface ISignUpUser {
 
 //Interfaces for Item Schema and Model
 interface IItem {
-	_id: mongoose.Schema.Types.ObjectId
+	_id: Types.ObjectId
 	name: string
 	description: string
 	sex: string
@@ -60,8 +66,8 @@ interface ICreateItem {
 //Interfaces for Order Schema and Model
 
 interface IOrder {
-	_id: mongoose.Schema.Types.ObjectId
-	itemId: mongoose.Schema.Types.ObjectId
+	_id: Types.ObjectId
+	itemId: Types.ObjectId
 	submitter: string
 	submitterName: string
 	street: string
@@ -77,7 +83,7 @@ type IOrderDocument = IOrder & Document
 //Interfaces for Subs Schema and model
 
 interface ISub {
-	_id: mongoose.Schema.Types.ObjectId
+	_id: Types.ObjectId
 	email: string
 }
 
