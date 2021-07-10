@@ -60,7 +60,7 @@ export const login = (req: Request, res: Response): void => {
 		res.json({ message: 'Wrong data submitted' })
 		return
 	}
-	passport.authenticate('local', function (err: any, user: any, info: any) {
+	passport.authenticate('local', function (err: any, user: any) {
 		if (err) {
 			res.json({ message: err.message })
 			return

@@ -1,11 +1,12 @@
 import MongoStore from 'connect-mongo'
 import cors from 'cors'
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import express from 'express'
 import session from 'express-session'
 import passport from 'passport'
 import { connectToMongo } from './controllers/db'
 import mainRoutes from './routes/index'
+
 dotenv.config()
 
 //Extracting PORT & HOST variables from .env file

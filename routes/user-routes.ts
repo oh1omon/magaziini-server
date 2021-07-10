@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { login, register, retrieve, signout, update } from '../controllers/user-handler'
+
 const router = Router()
 
 router.post('/register', register)

@@ -5,6 +5,7 @@ import Validator from './validator'
 /**
  * @param filter intakes the string by which field of document to do searches
  * @param value intakes the string of value to compare with the documents
+ * @param baseObject is hte object where new filter object will be destructured
  * @returns  filterObj */
 export const createFilterObj = (
 	filter: string,

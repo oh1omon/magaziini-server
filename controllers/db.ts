@@ -230,7 +230,7 @@ export const retrieveOrders = async (id = ''): Promise<IOrderDocument[]> => {
 
 /**
  *
- * @param orderObj
+ * @param email string
  * @returns {ISubDocument} created document
  */
 export const subAdd = async (email: string): Promise<ISubDocument> => {

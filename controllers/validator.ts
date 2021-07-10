@@ -29,18 +29,14 @@ class Validator {
 	}
 
 	/**
-	 * @param number
-	 * @returns True if number is actually number and
-	 * False if number is not number(NaN is number anyway :(*/
-	checkNumber(number: number) {
-		return !!(typeof number === 'number')
-	}
-
-	/**
 	 * @param signUpObj object with data to sign up employee
 	 * @returns True if object has passed the validation and False if have not passed*/
 	singUp(signUpObj: Record<string, unknown>) {
-		return !!(this.checkString(signUpObj.name) && this.email(signUpObj.email) && this.password(signUpObj.password))
+		return !!(
+			this.checkString(signUpObj.name) &&
+			this.email(signUpObj.email) &&
+			this.password(signUpObj.password)
+		)
 	}
 
 	/**
@@ -56,7 +52,11 @@ class Validator {
 	 * @returns True if object has passed the validation and False if have not passed
 	 */
 	createItem(itemObj: Record<string, unknown>) {
-		return !!this.checkString(itemObj.name) && !!this.checkString(itemObj.description) && !!this.checkString(itemObj.price)
+		return (
+			!!this.checkString(itemObj.name) &&
+			!!this.checkString(itemObj.description) &&
+			!!this.checkString(itemObj.price)
+		)
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Validator {
 
 	/**
 	 * Function performs checking for the type of id and if yes, checks if it is convertible to mongoose's ObjectId
-	 * @param {unknown} id
+	 * @param id
 	 * @returns boolean
 	 */
 	objectId(id: unknown) {

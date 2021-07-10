@@ -7,8 +7,7 @@ import { IFindOneUser, IUser } from '../types'
 
 /**
  * @param passport
- * @param getUserByEmail
- * @param getUserById
+ * @param findOneUser
  * Intakes passport instance,
  * function to find user by email to let authenticating able,
  * function to find user by id to deserialize the user*/

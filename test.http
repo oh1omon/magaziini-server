@@ -1,25 +1,25 @@
-POST https://mag-api.herokuapp.com/api/user/login
+POST http://127.0.0.1:8080/api/user/login
 Content-Type: application/json
 
 {
-	"email": "artem.szagarov@testd4.com", 
-	"password": "12345678"
+  "email": "artem.szagarov@testd4.com",
+  "password": "12345678"
 }
 
 ###
 
-POST https://mag-api.herokuapp.com/api/user/retrieve
+POST http://127.0.0.1:8080/api/user/retrieve
 Content-Type: application/json
 
 ###
 
-POST https://mag-api.herokuapp.com/api/user/register
+POST http://127.0.0.1:8080/api/user/register
 Content-Type: application/json
 
 {
-	"email": "artem.szagarov@testsd4.com", 
-	"password": "12345678",
-	"name": "osuzhdayu"
+  "email": "test@test.com",
+  "password": "12345678",
+  "name": "osuzhdayu"
 }
 
 ###
@@ -27,9 +27,9 @@ POST http://127.0.0.1:8080/api/user/update
 Content-Type: application/json
 
 {
-	"password": "12345678",
-    "city": "normal1",
-	"name": "osuzhdayu2"
+  "password": "12345678",
+  "city": "normal1",
+  "name": "osuzhdayu2"
 }
 
 ###
@@ -41,13 +41,15 @@ POST http://127.0.0.1:8080/api/item/create
 Content-Type: application/json
 
 {
-    "_id": "606f53ded540f3156a84c616",
-    "name": "string",
-    "description": "string",
-    "image": "string",
-    "sizes": ["35-3u"],
-    "price": 0,
-    "color": "string",
+  "_id": "606f53ded540f3156a84c616",
+  "name": "string",
+  "description": "string",
+  "image": "string",
+  "sizes": [
+	"35-3u"
+  ],
+  "price": 0,
+  "color": "string"
 }
 
 ###
@@ -56,13 +58,15 @@ POST http://127.0.0.1:8080/api/item/update
 Content-Type: application/json
 
 {
-    "_id": "606f53ded540f3156a84c616",
-    "name": "string",
-    "description": "string",
-    "image": "string",
-    "sizes": ["35-3u"],
-    "price": 0,
-    "color": "string",
+  "_id": "606f53ded540f3156a84c616",
+  "name": "string",
+  "description": "string",
+  "image": "string",
+  "sizes": [
+	"35-3u"
+  ],
+  "price": 0,
+  "color": "string"
 }
 
 ###
@@ -71,15 +75,16 @@ POST http://127.0.0.1:8080/api/item/remove
 Content-Type: application/json
 
 {
-    "_id": "60758944ccf22a3322b0b2bc"
+  "_id": "60758944ccf22a3322b0b2bc"
 }
+
 ###
 
 POST http://127.0.0.1:8080/api/order/create
 Content-Type: application/json
 
 {
-    "itemId":"6076b65cba0fd23b60dfaa52",
-    "size": "42",
-    "color": "green"
+  "itemId": "6076b65cba0fd23b60dfaa52",
+  "size": "42",
+  "color": "green"
 }

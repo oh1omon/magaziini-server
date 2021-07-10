@@ -6,6 +6,6 @@
 
 ## Stack :
 
--   Express
--   MongoDB
--   Typescipt <3
+- Express
+- MongoDB
+- Typescipt <3
